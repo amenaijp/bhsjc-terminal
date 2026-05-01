@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap"
+          rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: none;
+            text-size-adjust: none;
+            min-width: 320px;
+        }
+    </style>
+    <title>JC test article</title>
+</head>
+<body class="flex flex-col bg-[#ffffff] max-w-dwh">
+<div class="flex flex-col min-h-dvh">
+    <!-- page header, hamburger menu-->
+    <header class="grid grid-cols-[minmax(min-content,_1fr)_minmax(min-content,_1fr)_1fr]">
+        <!-- First column; hamburger menu -->
+        <div class="flex items-center">
+            <!-- Hamburger menu icon -->
+            <button class="flex hover:cursor-pointer">
+                <svg class="size-10 md:size-11 lg:size-14 ml-4" fill="none"
+                     stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <!-- second column; title -->
+        <div class="flex flex-row justify-center">
+            <a href="#" class="flex group px-4">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl my-2 font-[Playfair_Display_SC] text-[#003227] group-hover:underline">Terminal</h1>
+            </a>
+        </div>
+        <!-- third column; empty for spacing -->
+        <div></div>
+    </header>
+
+    <!-- Divider -->
+    <div class="bg-[#003227] flex h-0.5 my-4 rounded-xs"></div>
+
+    <!-- top articles -->
+    <div class="flex flex-col mt-4 md:px-3 max-w-[800px] self-center">
+        <h2 class="text-4xl lg:text-6xl font-[Playfair] text-center self-center text-pretty wrap-anywhere">A VERY Interesting Article Title</h2>
+        <div class="flex flex-row">
+            <p class="text-sm md:text-md">67 days ago</p>
+            <div class="flex flex-1"></div>
+            <p class="text-sm md:text-md justify-center max-w-1/2"><b class="text-md md:text-lg text-[#132d23]">Squidward Tentacles</b> and <b class="text-md md:text-lg text-[#132d23] text-pretty wrap-anywhere">Spongebob SquarePants</b></p>
+        </div>
+    </div>
+
+    <!-- Expander, to put the page footer at the very bottom -->
+    <div class="flex min-h-32"></div>
+</div>
+
+<!-- Page Footer -->
+<footer class="flex flex-col md:flex-row justify-center px-8 py-16 gap-4 md:gap-8 bg-[#f8f8f8]">
+    <h2 class="text-3xl text-gray-500 self-center">The Burnside Journalism Club</h2>
+    <div class="flex flex-col justify-left">
+        <p class="text-gray-500 wrap-anywhere">Contact us at <a class="text-blue-500 underline hover:text-blue-700"
+                                                                href="mailto:journalismclub@burnside.school.nz">journalismclub@burnside.school.nz</a>
+        </p>
+        <p class="text-gray-500 self-end">Website by Miles McGrath</p>
+    </div>
+</footer>
+</body>
+</html>
