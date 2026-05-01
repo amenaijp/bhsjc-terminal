@@ -41,8 +41,9 @@
         </div>
         <!-- second column; title -->
         <div class="flex flex-row justify-center">
-            <a href="#" class="flex group px-4">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl my-2 font-[Playfair_Display_SC] text-[#003227] group-hover:underline">Terminal</h1>
+            <a class="flex group px-4" href="#">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl my-2 font-[Playfair_Display_SC] text-[#003227] group-hover:underline">
+                    Terminal</h1>
             </a>
         </div>
         <!-- third column; empty for spacing -->
@@ -56,11 +57,40 @@
     <article class="flex flex-col mt-4 md:px-3 max-w-[1000px] self-center">
         <!-- Title, Date, Journalists -->
         <header class="flex flex-col lg:max-w-[800px] self-center px-3">
-            <h2 class="text-4xl lg:text-6xl font-[Playfair] text-left self-center text-pretty wrap-anywhere">a VERY interesting article title</h2>
+            <h2 class="text-4xl lg:text-6xl font-[Playfair] text-left self-center wrap-anywhere">a VERY
+                interesting article title</h2>
             <p class="text-sm md:text-md text-left text-[#666666] mt-3">67 days ago</p>
-            <p class="text-sm md:text-md text-left text-pretty wrap-anywhere mt-3">by <b class="text-md md:text-lg text-[#132d23]">Squidward Tentacles</b> and <b class="text-md md:text-lg text-[#132d23] text-pretty wrap-anywhere">Spongebob SquarePants</b></p>
+            <p class="text-sm md:text-md text-left wrap-anywhere mt-3">by <b
+                    class="text-md md:text-lg text-[#132d23]">Squidward Tentacles</b> and <b
+                    class="text-md md:text-lg text-[#132d23] wrap-anywhere">Spongebob SquarePants</b></p>
         </header>
-        <img alt="Article Image" class="flex aspect-video md:rounded-xs mt-10 self-center md:px-5" src="https://picsum.photos/1920/1080"/>
+        <img alt="Article Image" class="flex aspect-video md:rounded-xs mt-10 self-center md:px-5"
+             src="https://picsum.photos/1920/1080"/>
+        <!-- Actual article content: needs to be treated as dangerous and since it's being parsed through a markdown->html converter it will have slightly different html semantics compared to the rest of the file-->
+        <div class="flex flex-col px-3">
+            <!-- whitespace-pre-wrap is just to get \n\n to render while using lorem ipsum, remove when using markdown-->
+            <p class="text-md md:text-[1.2rem] text-left wrap-anywhere font-[Playfair] whitespace-pre-wrap">
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            </p>
+        </div>
     </article>
 
     <!-- Expander, to put the page footer at the very bottom -->
