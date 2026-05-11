@@ -1,0 +1,11 @@
+{
+	"/": [
+		"src/routes/+page.ts"
+	],
+	"/article/[article_id]": [
+		"src/routes/article/[article_id]/+page.ts"
+	],
+	"/genre/[genre]": [
+		"src/routes/genre/[genre]/+page.ts"
+	]
+}

@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+@import '@fontsource/playfair-display-sc';
+@import '@fontsource/playfair-display';
+@import '@fontsource/playfair';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	min-width: 320px;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	max-width: 100dvw;
+}
