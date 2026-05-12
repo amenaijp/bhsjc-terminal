@@ -1,4 +1,6 @@
 <script lang="ts">
+	import GenreOptionRow from '$lib/components/GenreOptionRow.svelte';
+
 	export let data;
 </script>
 
@@ -7,43 +9,7 @@
 </svelte:head>
 
 <!-- genre selector -->
-<nav class="hidden flex-row justify-center md:flex">
-	<div class="flex flex-1 justify-center md:max-w-[9rem] lg:max-w-[12rem]">
-		<a class="group flex px-4" href="#">
-			<h2 class="font-[Playfair] text-[#132d23] group-hover:underline md:text-3xl lg:text-4xl">
-				Sport
-			</h2>
-		</a>
-	</div>
-	<div class="flex flex-1 justify-center md:max-w-[9rem] lg:max-w-[12rem]">
-		<a class="group flex rounded-t-sm bg-[#132d23] px-4" href="#">
-			<h2 class="font-[Playfair] text-[#ffffff] group-hover:underline md:text-3xl lg:text-4xl">
-				Cultural
-			</h2>
-		</a>
-	</div>
-	<div class="flex flex-1 justify-center md:max-w-[9rem] lg:max-w-[12rem]">
-		<a class="group flex px-4" href="#">
-			<h2 class="font-[Playfair] text-[#132d23] group-hover:underline md:text-3xl lg:text-4xl">
-				Opinion
-			</h2>
-		</a>
-	</div>
-	<div class="flex flex-1 justify-center md:max-w-[9rem] lg:max-w-[12rem]">
-		<a class="group flex px-4" href="#">
-			<h2 class="font-[Playfair] text-[#132d23] group-hover:underline md:text-3xl lg:text-4xl">
-				School
-			</h2>
-		</a>
-	</div>
-	<div class="flex flex-1 justify-center md:max-w-[9rem] lg:max-w-[12rem]">
-		<a class="group flex px-4" href="#">
-			<h2 class="font-[Playfair] text-[#132d23] group-hover:underline md:text-3xl lg:text-4xl">
-				Other
-			</h2>
-		</a>
-	</div>
-</nav>
+<GenreOptionRow select={data.genre} />
 
 <!-- Divider -->
 <a
