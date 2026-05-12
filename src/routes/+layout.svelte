@@ -1,5 +1,6 @@
 <script lang="ts">
 	import './layout.css';
+	import { resolve } from '$app/paths';
 
 	let { children } = $props();
 </script>
@@ -10,7 +11,7 @@
 		<!-- First column; hamburger menu -->
 		<div class="flex items-center">
 			<!-- Hamburger menu icon -->
-			<button class="flex hover:cursor-pointer">
+			<button class="flex hover:cursor-pointer" aria-label="Open Menu">
 				<svg
 					class="ml-4 size-10 md:size-11 lg:size-14"
 					fill="none"
@@ -29,7 +30,7 @@
 		</div>
 		<!-- second column; title -->
 		<div class="flex flex-row justify-center">
-			<a class="group flex px-4" href="#">
+			<a class="group flex px-4" href={resolve('/')}>
 				<h1
 					class="my-2 font-[Playfair_Display_SC] text-5xl text-[#003227] group-hover:underline md:text-7xl lg:text-8xl"
 				>
