@@ -8,7 +8,7 @@ node_modules
 .vercel/
 .netlify/
 .wrangler/
-frontend/.svelte-kit/
+.svelte-kit/
 build/
 
 # OS
