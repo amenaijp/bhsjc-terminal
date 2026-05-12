@@ -11,6 +11,10 @@
 		if (menu_open) backdrop?.focus();
 	});
 
+	$effect(() => {
+		document.body.style.overflow = menu_open ? 'hidden' : '';
+	});
+
 	let { children } = $props();
 </script>
 
