@@ -23,7 +23,7 @@
 
 <!-- top articles -->
 <div
-	class="grid max-w-[1536px] grid-cols-1 gap-2 self-center md:mt-4 md:grid-cols-6 md:px-3 lg:grid-cols-4"
+	class="grid max-w-[1248px] grid-cols-1 gap-2 self-center md:mt-4 md:grid-cols-6 md:px-3 lg:grid-cols-4"
 >
 	<!-- Main article, very side article-->
 	<div class="col-start-1 row-start-1 flex flex-col md:col-span-4 md:row-span-2 lg:col-span-2">

@@ -2,14 +2,21 @@
 	import './layout.css';
 	import { resolve } from '$app/paths';
 
+	let backdrop: HTMLButtonElement | null = $state(null);
+
 	let menu_open = $state(false);
+	let header_height = $state(0);
+
+	$effect(() => {
+		if (menu_open) backdrop?.focus();
+	});
 
 	let { children } = $props();
 </script>
 
 <div class="flex min-h-dvh flex-col">
 	<!-- page header, hamburger menu-->
-	<header class="grid grid-cols-[minmax(min-content,1fr)_minmax(min-content,1fr)_1fr]">
+	<header class="grid grid-cols-[minmax(min-content,1fr)_minmax(min-content,1fr)_1fr]" bind:clientHeight={header_height}>
 		<!-- First column; hamburger menu -->
 		<div class="flex items-center">
 			<!-- Hamburger menu icon -->
@@ -49,6 +56,18 @@
 		<!-- third column; empty for spacing -->
 		<div></div>
 	</header>
+
+	<!-- backdrop -->
+	<button
+		bind:this={backdrop}
+		style="top: {header_height}px"
+		class="fixed w-full bottom-0 z-50 bg-[#0000004D] cursor-default"
+		class:invisible={!menu_open}
+		class:pointer-events-none={!menu_open}
+		aria-label="Close menu"
+		onclick={() => menu_open = false}
+		onkeydown={(e) => e.key === 'Escape' && (menu_open = false)}
+	></button>
 
 	{@render children()}
 
