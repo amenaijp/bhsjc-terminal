@@ -1,10 +1,12 @@
 <script lang="ts">
 	import './layout.css';
 	import { resolve } from '$app/paths';
+	import MenuOption from '$lib/components/MenuOption.svelte';
+	import { GENRES } from '$lib/genres.ts';
 
 	let backdrop: HTMLButtonElement | null = $state(null);
 
-	let menu_open = $state(false);
+	let menu_open = $state(true);
 	let header_height = $state(0);
 
 	$effect(() => {
@@ -88,11 +90,21 @@
 	<!-- menu thingy -->
 	<div
 		style="top: {header_height}px"
-		class="absolute bottom-0 left-0 z-50 flex w-full flex-col bg-[#FF0000] shadow-md transition-transform duration-100 ease-in-out md:w-[320px]"
+		class="absolute bottom-0 left-0 z-50 flex w-full flex-col bg-[#FFFFFF] shadow-md transition-transform duration-100 ease-in-out md:w-[320px]"
 		class:-translate-x-full={!menu_open}
 		class:translate-x-0={menu_open}
 	>
-		<p class="self-center">menu</p>
+		<!-- divider line -->
+		<div class="flex h-px flex-row rounded-xs bg-[#E0E0E0]"></div>
+
+		<MenuOption title="Home" path={resolve('/')} />
+		{#each GENRES as genre}
+			<MenuOption title={genre} path={resolve(`/genre/${genre}`)} />
+		{/each}
+
+		<div class="flex flex-1 flex-col"></div>
+
+			<!-- TODO: put editor's page link here -->
 	</div>
 
 	{@render children()}
