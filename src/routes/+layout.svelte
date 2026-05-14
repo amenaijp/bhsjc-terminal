@@ -24,7 +24,10 @@
 		<!-- First column; hamburger menu -->
 		<div class="flex items-center">
 			<!-- Hamburger menu icon -->
-			<button class="flex hover:cursor-pointer" aria-label="Open Menu" onclick={() => menu_open = !menu_open}>
+			<button class="flex hover:cursor-pointer" aria-label="Open Menu" onclick={() => {
+				window.scrollTo({top: 0, behavior: 'instant'});
+				menu_open = !menu_open;
+			}}>
 				<svg
 					class="ml-4 size-10 md:size-11 lg:size-14"
 					fill="none"
@@ -65,13 +68,25 @@
 	<button
 		bind:this={backdrop}
 		style="top: {header_height}px"
-		class="fixed w-full bottom-0 z-50 bg-[#0000004D] cursor-default"
+		class="absolute w-full bottom-0 z-50 cursor-default transition-colors duration-100 ease-in-out"
 		class:invisible={!menu_open}
+		class:bg-[#0000004d]={menu_open}
+		class:bg-[#00000000]={!menu_open}
 		class:pointer-events-none={!menu_open}
 		aria-label="Close menu"
 		onclick={() => menu_open = false}
 		onkeydown={(e) => e.key === 'Escape' && (menu_open = false)}
 	></button>
+
+	<!-- menu thingy -->
+	<div
+		style="top: {header_height}px"
+		class="absolute w-[320px] bottom-0 z-50 bg-[#FF0000] transition-[left] duration-100 ease-in-out"
+		class:left-[-320px]={!menu_open}
+		class:left-0={menu_open}
+	>
+		<p>menu</p>
+	</div>
 
 	{@render children()}
 
