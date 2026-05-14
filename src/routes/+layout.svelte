@@ -81,7 +81,7 @@
 	<!-- menu thingy -->
 	<div
 		style="top: {header_height}px"
-		class="absolute w-[320px] bottom-0 z-50 bg-[#FF0000] transition-[left] duration-100 ease-in-out"
+		class="absolute w-full md:w-[320px] bottom-0 z-50 bg-[#FF0000] transition-[left] duration-100 ease-in-out shadow-md"
 		class:left-[-320px]={!menu_open}
 		class:left-0={menu_open}
 	>
