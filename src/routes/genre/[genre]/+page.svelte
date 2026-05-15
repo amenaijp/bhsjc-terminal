@@ -27,7 +27,7 @@
 <!-- genre selector -->
 <GenreOptionRow select={data.genre} />
 
-<!-- Shows what genre you're on when mobile FIXME: also broken right now -->
+<!-- Shows what genre you're on when mobile (and also acts as some my-) -->
 <a
 	class="group mt-2 flex justify-center bg-[#132d23] md:mt-0 md:mb-4 md:h-0.5 md:rounded-xs"
 	href={resolve(`/genre/${data.genre}`)}
