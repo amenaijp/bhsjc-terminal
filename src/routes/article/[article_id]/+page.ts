@@ -1,4 +1,4 @@
-// src/routes/genre/[genre]/+page.ts
+// src/routes/genre/[genre=genre]/+page.ts
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {
