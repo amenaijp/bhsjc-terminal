@@ -1,0 +1,30 @@
+<script lang="ts">
+	import Article from '$lib/components/article/Article.svelte';
+	import type { Article as ArticleType } from '$lib/server/db/schema';
+	import { resolve } from '$app/paths';
+
+	interface Props {
+		article: ArticleType;
+	}
+
+	let { article }: Props = $props();
+</script>
+
+<Article link={resolve(`/article/${article.id}`)}>
+	<!-- FIXME: if we ever add a dark mode, the opacity trick won't work here-->
+	<img
+		alt="Front page"
+		class="flex aspect-video transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
+		src={article.frontImage}
+	/>
+	<h2
+		class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl"
+	>
+		{article.title}
+	</h2>
+	<p
+		class="text-md mx-4 mt-1 self-center text-center font-[Playfair] wrap-anywhere text-[#132d23] md:text-lg"
+	>
+		{article.hook}
+	</p>
+</Article>
