@@ -104,7 +104,7 @@
 
 		<div class="flex flex-1 flex-col"></div>
 
-		<!-- TODO: put editor's page link here -->
+		<!-- TODO: put editor@'s page link here -->
 	</div>
 
 	{@render children()}
