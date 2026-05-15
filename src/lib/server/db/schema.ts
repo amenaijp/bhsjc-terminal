@@ -9,7 +9,7 @@ export const article = sqliteTable('article', {
 	fullText: text('full_text').notNull(),
 	frontImage: text('front_image').notNull(),
 	title: text('title').notNull(),
-	owner_id: text('owner_id')
+	ownerId: text('owner_id')
 		.notNull()
 		.references(() => user.id)
 });
@@ -40,7 +40,7 @@ export const articleAuthor = sqliteTable(
 
 export const articleRelations = relations(article, ({ one, many }) => ({
 	owner: one(user, {
-		fields: [article.owner_id],
+		fields: [article.ownerId],
 		references: [user.id]
 	}),
 	genres: many(articleGenre),
@@ -67,6 +67,7 @@ export const articleAuthorRelations = relations(articleAuthor, ({ one }) => ({
 
 // betterAuth schemas
 
+// MODIFY IN ../auth.ts IF MODIFYING THIS SCHEMA
 export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
 	name: text('name').notNull(),
@@ -174,3 +175,6 @@ export const accountRelations = relations(account, ({ one }) => ({
 		references: [user.id]
 	})
 }));
+
+export type Article = typeof article.$inferSelect;
+// export type NewArticle = typeof article.$inferInsert;
