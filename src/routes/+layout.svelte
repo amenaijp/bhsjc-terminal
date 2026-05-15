@@ -1,12 +1,12 @@
 <script lang="ts">
 	import './layout.css';
 	import { resolve } from '$app/paths';
-	import MenuOption from '$lib/components/MenuOption.svelte';
-	import { GENRES } from '$lib/genres.ts';
+	import MenuOption from '$lib/components/layout/MenuOption.svelte';
+	import { GENRES } from '$lib/genres';
 
 	let backdrop: HTMLButtonElement | null = $state(null);
 
-	let menu_open = $state(true);
+	let menu_open = $state(false);
 	let header_height = $state(0);
 
 	$effect(() => {
@@ -104,7 +104,7 @@
 
 		<div class="flex flex-1 flex-col"></div>
 
-			<!-- TODO: put editor's page link here -->
+		<!-- TODO: put editor's page link here -->
 	</div>
 
 	{@render children()}

@@ -1,53 +1,50 @@
 <script lang="ts">
-	import GenreOptionRow from '$lib/components/GenreOptionRow.svelte';
+	import GenreOptionRow from '$lib/components/layout/GenreOptionRow.svelte';
+	import type { Article } from '$lib/server/db/schema';
+	import MainArticle from '$lib/components/article/MainArticle.svelte';
+	import SideArticle from '$lib/components/article/SideArticle.svelte';
+	import { resolve } from '$app/paths';
+
+	const defaultArticle: Article = {
+		date: Date.now(),
+		id: 'test-article-awawawawawa',
+		hook: "bazinga what an interesting hook to what must be such an interesting article awooga i need \n\nto make this text long enough to get interesting functionality",
+		fullText: "dsufhsudhfushdfusdfdsf\n\nsdfsdfsdfsdfadsddfhsudhfsfd\n\nsduhfusdhguewrgyuewfhg\n\nsdjgudfhgudshfgusdhfgsdfg\n\nusdfjgushfdguhsdufghusdfhgusdfhg\n\nudhfguhdfughsdf",
+		frontImage: "https://picsum.photos/1920/1080",
+		title: "genre an title!!!111!",
+		ownerId: "owner-id-goes-here"
+	}
 
 	export let data;
+
+	const label = data.genre.charAt(0).toUpperCase() + data.genre.slice(1);
 </script>
 
 <svelte:head>
-	<title>{data.genre}</title>
+	<title>{label}</title>
 </svelte:head>
 
 <!-- genre selector -->
 <GenreOptionRow select={data.genre} />
 
-<!-- Divider -->
+<!-- Shows what genre you're on when mobile FIXME: also broken right now -->
 <a
 	class="group mt-2 flex justify-center bg-[#132d23] md:mt-0 md:mb-4 md:h-0.5 md:rounded-xs"
-	href="#"
+	href={resolve(`/genre/${data.genre}`)}
 >
 	<h2 class="flex font-[Playfair] text-3xl text-[#ffffff] group-hover:underline md:hidden">
-		Cultural
+		{label}
 	</h2>
 </a>
 
 <!-- top articles -->
 <div
-	class="grid max-w-[1248px] grid-cols-1 gap-2 self-center md:mt-4 md:grid-cols-6 md:px-3 lg:grid-cols-4"
+	class="grid max-w-312 grid-cols-1 gap-2 self-center md:mt-4 md:grid-cols-6 md:px-3 lg:grid-cols-4"
 >
 	<!-- Main article, very side article-->
 	<div class="col-start-1 row-start-1 flex flex-col md:col-span-4 md:row-span-2 lg:col-span-2">
 		<!-- Main Article -->
-		<a class="group flex flex-col" href="#">
-			<!-- FIXME: if we ever add a dark mode, the opacity trick won't work here-->
-			<img
-				alt="Front page Image"
-				class="flex aspect-video transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
-				src="https://picsum.photos/1920/1080"
-			/>
-			<h2
-				class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl"
-			>
-				Article Title
-			</h2>
-			<p
-				class="text-md mx-4 mt-1 self-center text-center font-[Playfair] wrap-anywhere text-[#132d23] md:text-lg"
-			>
-				blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-				blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-				blah blah blah blah blah blah blah blah blah
-			</p>
-		</a>
+		<MainArticle article={defaultArticle} />
 	</div>
 
 	<!-- Mobile divider between main article and side articles -->
@@ -58,50 +55,15 @@
 		class="flex flex-col px-2 md:col-span-2 md:col-start-5 md:row-span-2 md:row-start-1 md:mt-6 lg:col-span-1 lg:col-start-3"
 	>
 		<!-- Side Article 1 -->
-		<a class="group flex flex-col" href="#">
-			<h3
-				class="self-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl"
-			>
-				Side Article 1
-			</h3>
-			<p
-				class="self-center text-center font-[Playfair] text-base wrap-anywhere text-[#132d23] md:text-lg"
-			>
-				Here is a brief overview of the article in a few short sentences
-			</p>
-		</a>
+		<SideArticle article={defaultArticle} />
 		<!-- Divider -->
 		<div class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0]"></div>
 		<!-- Side Article 2 -->
-		<a class="group flex flex-col" href="#">
-			<h3
-				class="self-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl"
-			>
-				Side Article 2
-			</h3>
-			<p
-				class="self-center text-center font-[Playfair] text-base wrap-anywhere text-[#132d23] md:text-lg"
-			>
-				Here is a brief overview of the article in a few short sentences. However, this is a longer
-				article with possibly a photo, so right now there are a bunch of random words that are just
-				here.
-			</p>
-		</a>
+		<SideArticle article={defaultArticle} />
 		<!-- Divider -->
 		<div class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0]"></div>
 		<!-- Side Article 3 -->
-		<a class="group flex flex-col" href="#">
-			<h3
-				class="self-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl"
-			>
-				Side Article 3
-			</h3>
-			<p
-				class="self-center text-center font-[Playfair] text-base wrap-anywhere text-[#132d23] md:text-lg"
-			>
-				Here is the last one where its very tiny and small bean
-			</p>
-		</a>
+		<SideArticle article={defaultArticle} />
 	</div>
 
 	<!-- Mobile divider between side articles and join us -->
@@ -114,53 +76,18 @@
 		class="flex flex-col px-2 md:col-span-6 md:col-start-1 md:row-start-4 md:mt-6 md:flex-row lg:col-span-1 lg:col-start-4 lg:row-start-1 lg:flex-col"
 	>
 		<!-- Side Article 4 -->
-		<a class="group flex flex-col" href="#">
-			<h3
-				class="self-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl"
-			>
-				Side Article 4
-			</h3>
-			<p
-				class="self-center text-center font-[Playfair] text-base wrap-anywhere text-[#132d23] md:text-lg"
-			>
-				Here is a brief overview of the article in a few short sentences. However, this is a longer
-				article with possibly a photo, so right now there are a bunch of random words that are just
-				here.
-			</p>
-		</a>
+		<SideArticle article={defaultArticle} />
 		<!-- Divider -->
 		<div
 			class="mx-8 my-4 flex h-0.5 w-auto shrink-0 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
 		></div>
 		<!-- Side Article 5 -->
-		<a class="group flex flex-col" href="#">
-			<h3
-				class="self-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl"
-			>
-				Side Article 5
-			</h3>
-			<p
-				class="self-center text-center font-[Playfair] text-base wrap-anywhere text-[#132d23] md:text-lg"
-			>
-				Here is the last one where its very tiny and small bean
-			</p>
-		</a>
+		<SideArticle article={defaultArticle} />
 		<!-- Divider -->
 		<div
 			class="mx-8 my-4 flex h-0.5 w-auto shrink-0 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
 		></div>
 		<!-- Side Article 6 -->
-		<a class="group flex flex-col" href="#">
-			<h3
-				class="self-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl"
-			>
-				Side Article 6
-			</h3>
-			<p
-				class="self-center text-center font-[Playfair] text-base wrap-anywhere text-[#132d23] md:text-lg"
-			>
-				Here is a brief overview of the article in a few short sentences
-			</p>
-		</a>
+		<SideArticle article={defaultArticle} />
 	</div>
 </div>
