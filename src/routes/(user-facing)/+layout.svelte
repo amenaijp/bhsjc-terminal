@@ -1,5 +1,4 @@
 <script lang="ts">
-	import './layout.css';
 	import { resolve } from '$app/paths';
 	import MenuOption from '$lib/components/layout/MenuOption.svelte';
 	import { GENRES } from '$lib/genres';
@@ -104,7 +103,7 @@
 
 		<div class="flex flex-1 flex-col"></div>
 
-		<!-- TODO: put editor@'s page link here -->
+		<MenuOption title="Editors' Dashboard" path={resolve("/editor/dashboard")} />
 	</div>
 
 	{@render children()}
