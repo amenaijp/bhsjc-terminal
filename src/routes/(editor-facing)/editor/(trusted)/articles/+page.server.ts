@@ -1,6 +1,6 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { desc, eq } from 'drizzle-orm';
+import { desc, eq, like, and } from 'drizzle-orm';
 import { article, articleAuthor } from '$lib/server/db/schema';
 import { db } from '$lib/server/db';
 import { nanoid } from 'nanoid';
@@ -14,7 +14,12 @@ export const load: PageServerLoad = async (event) => {
 	const articles = await db
 		.select()
 		.from(article)
-		.where(eq(article.ownerId, event.locals.user.id))
+		.where(
+			and(
+				eq(article.ownerId, event.locals.user.id),
+				search ? like(article.title, `%${search}%`) : undefined
+			)
+		)
 		.orderBy(desc(article.createdAt));
 
 	return {
