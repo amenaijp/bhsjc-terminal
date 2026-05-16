@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Genre, GENRES } from '$lib/genres.ts';
+	import { type Genre, GENRES } from '$lib/genres';
 	import HeaderGenreOption from '$lib/components/layout/HeaderGenreOption.svelte';
 
 	interface Props {
