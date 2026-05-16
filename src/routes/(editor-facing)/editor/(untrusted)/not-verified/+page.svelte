@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from "$app/paths"
-	import Link from "\$lib/components/editors/link.svelte";
+	import Link from '$lib/components/editors/link.svelte';
 </script>
 
 <p>
