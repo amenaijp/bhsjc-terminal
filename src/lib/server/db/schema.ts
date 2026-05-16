@@ -12,6 +12,7 @@ export const article = sqliteTable('article', {
 		.notNull(),
 	userWrittenHook: text('user_written_hook').notNull(),
 	hook: text('hook').notNull(),
+	openToFeedback: integer('open_to_feedback', { mode: 'boolean' }).default(false).notNull(),
 	fullText: text('full_text').notNull(),
 	frontImage: text('front_image').notNull(),
 	title: text('title').notNull(),

@@ -42,9 +42,7 @@ export const actions: Actions = {
 			fullText: 'example article text',
 			frontImage: '',
 			title: 'untitled article',
-			ownerId: locals.user.id,
-			createdAt: new Date(),
-			updatedAt: new Date()
+			ownerId: locals.user.id
 		};
 
 		const author_entry: typeof articleAuthor.$inferInsert = {
