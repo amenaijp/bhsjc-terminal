@@ -2,8 +2,6 @@
 	import { resolve } from "$app/paths";
 
 	let { children, data } = $props();
-
-	$inspect(data.user)
 </script>
 
 <div class="flex flex-col">
