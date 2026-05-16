@@ -2,6 +2,8 @@
 	import { resolve } from "$app/paths";
 
 	let { children, data } = $props();
+
+	$inspect(data.user)
 </script>
 
 <div class="flex flex-col">
@@ -15,6 +17,9 @@
 		{#if data.user.userType === "admin"}
 			<a class="group self-center" href={resolve("/editor/users")}>
 				<h2 class="text-xl group-hover:underline">Users</h2>
+			</a>
+			<a class="group self-center" href={resolve("/editor/nominations")}>
+				<h2 class="text-xl group-hover:underline">Nominations</h2>
 			</a>
 		{/if}
 		<a class="group self-center" href={resolve("/editor/articles")}>
