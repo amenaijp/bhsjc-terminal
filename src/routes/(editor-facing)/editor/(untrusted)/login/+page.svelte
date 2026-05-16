@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from "$app/paths";
+	import Link from '$lib/components/editors/link.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -20,6 +21,6 @@
 </form>
 <p class="my-1 text-red-500">{form?.message ?? ''}</p>
 <!-- uncomment when email provider is actually implemented -->
-<!--	<a href={resolve("/editor/reset-password")} class="text-blue-600 hover:text-blue-600 hover:underline mx-2 w-fit">reset password</a>-->
-<a href={resolve("/editor/register")} class="text-blue-600 hover:text-blue-700 hover:underline mx-2 w-fit">register an account</a>
-<a href={resolve("/")} class="text-blue-600 hover:text-blue-700 hover:underline mx-2 w-fit">return to homepage</a>
+<!--<Link href={resolve("/editor/reset-password")}>reset password</Link>-->
+<Link href={resolve("/editor/register")}>register an account</Link>
+<Link href={resolve("/")}>return to homepage</Link>

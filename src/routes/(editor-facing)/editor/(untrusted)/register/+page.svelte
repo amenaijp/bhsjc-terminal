@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from "$app/paths";
+	import Link from '$lib/components/editors/link.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -23,5 +24,5 @@
 	<button class="rounded-sm bg-blue-600 hover:bg-blue-700 text-white transition py-1 px-2 w-fit">register</button>
 </form>
 <p class="my-1 text-red-500">{form?.message ?? ''}</p>
-<a href={resolve("/editor/login")} class="text-blue-600 hover:text-blue-700 hover:underline mx-2 w-fit">log into an account</a>
-<a href={resolve("/")} class="text-blue-600 hover:text-blue-700 hover:underline mx-2 w-fit">return to homepage</a>
+<Link href={resolve("/editor/login")}>log into an account</Link>
+<Link href={resolve("/")}>return to homepage</Link>

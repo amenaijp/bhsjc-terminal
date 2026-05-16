@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from "$app/paths"
+	import Link from "\$lib/components/editors/link.svelte";
 </script>
 
 <p>
@@ -7,5 +8,4 @@
 	<br />
 	In the meantime, have you verified your email address yet? We may assume you're a bot or malicious actor if you haven't.
 </p>
-
-<a href={resolve("/")} class="text-blue-600 hover:text-blue-700 hover:underline mx-2 w-fit">return to homepage</a>
+<Link href={resolve("/")}>return to homepage</Link>

@@ -33,6 +33,7 @@
 		</a>
 	</nav>
 	<div class="flex h-px flex-row rounded-xs bg-[#E0E0E0]"></div>
-
-	{@render children()}
+	<div class="flex flex-col m-2">
+		{@render children()}
+	</div>
 </div>
