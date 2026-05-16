@@ -2,4 +2,6 @@
 	let { children } = $props();
 </script>
 
-{@render children()}
+<div class="flex flex-col m-2">
+	{@render children()}
+</div>
