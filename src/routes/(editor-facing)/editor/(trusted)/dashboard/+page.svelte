@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
+	import Link from '$lib/components/editors/link.svelte';
 
 	let { data }: { data: PageServerData } = $props();
 </script>
 
-<p>hi, {data.user.name}! your user id is {data.user.id}. this is the super duper secret editor's dashboard</p>
+<p>
+	Hello, {data.user.name}! <br />
+	You are currently logged in as an {data.user.userType}. <br />
+</p>
+<Link href="/">go to Terminal's front page</Link>
