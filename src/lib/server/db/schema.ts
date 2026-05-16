@@ -4,7 +4,13 @@ import type { Genre } from '$lib/genres';
 
 export const article = sqliteTable('article', {
 	id: text('id').notNull().primaryKey(),
-	date: integer('date').notNull(),
+	createdAt: integer('created_at', { mode: 'timestamp_ms' })
+		.default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
+		.notNull(),
+	updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+		.$onUpdate(() => /* @__PURE__ */ new Date())
+		.notNull(),
+	userWrittenHook: text('user_written_hook').notNull(),
 	hook: text('hook').notNull(),
 	fullText: text('full_text').notNull(),
 	frontImage: text('front_image').notNull(),

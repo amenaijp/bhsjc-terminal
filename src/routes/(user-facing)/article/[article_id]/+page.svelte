@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let data;
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
 </script>
 
 <svelte:head>

@@ -4,6 +4,7 @@
 	import MainArticle from '$lib/components/article/MainArticle.svelte';
 	import SideArticle from '$lib/components/article/SideArticle.svelte';
 	import { resolve } from '$app/paths';
+	import type { PageData } from './$types';
 
 	const defaultArticle: Article = {
 		date: Date.now(),
@@ -16,7 +17,7 @@
 		ownerId: 'owner-id-goes-here'
 	};
 
-	export let data;
+	let { data }: { data: PageData } = $props();
 
 	const label = data.genre.charAt(0).toUpperCase() + data.genre.slice(1);
 </script>
