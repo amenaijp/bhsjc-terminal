@@ -177,4 +177,5 @@ export const accountRelations = relations(account, ({ one }) => ({
 }));
 
 export type Article = typeof article.$inferSelect;
+export type User = typeof user.$inferSelect;
 // export type NewArticle = typeof article.$inferInsert;
