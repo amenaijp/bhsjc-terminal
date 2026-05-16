@@ -103,7 +103,7 @@
 
 		<div class="flex flex-1 flex-col"></div>
 
-		<MenuOption title="Editors' Dashboard" path={resolve("/editor/dashboard")} />
+		<MenuOption title="Editors' Dashboard" path={resolve('/editor/dashboard')} />
 	</div>
 
 	{@render children()}

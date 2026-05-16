@@ -8,12 +8,13 @@
 	const defaultArticle: Article = {
 		date: Date.now(),
 		id: 'test-article-awawawawawa',
-		hook: "bazinga what an interesting hook to what must be such an interesting article awooga i need \n\nto make this text long enough to get interesting functionality",
-		fullText: "dsufhsudhfushdfusdfdsf\n\nsdfsdfsdfsdfadsddfhsudhfsfd\n\nsduhfusdhguewrgyuewfhg\n\nsdjgudfhgudshfgusdhfgsdfg\n\nusdfjgushfdguhsdufghusdfhgusdfhg\n\nudhfguhdfughsdf",
-		frontImage: "https://picsum.photos/1920/1080",
-		title: "genre an title!!!111!",
-		ownerId: "owner-id-goes-here"
-	}
+		hook: 'bazinga what an interesting hook to what must be such an interesting article awooga i need \n\nto make this text long enough to get interesting functionality',
+		fullText:
+			'dsufhsudhfushdfusdfdsf\n\nsdfsdfsdfsdfadsddfhsudhfsfd\n\nsduhfusdhguewrgyuewfhg\n\nsdjgudfhgudshfgusdhfgsdfg\n\nusdfjgushfdguhsdufghusdfhgusdfhg\n\nudhfguhdfughsdf',
+		frontImage: 'https://picsum.photos/1920/1080',
+		title: 'genre an title!!!111!',
+		ownerId: 'owner-id-goes-here'
+	};
 
 	export let data;
 

@@ -59,12 +59,9 @@ export const actions: Actions = {
 		// rework the db schema, betterauth custom types, and all routes to remove the userType field and instead base
 		// access on a user's emailVerified and role == "admin" properties, using betterauth's admin plugin. For now,
 		// though, we just work directly on the database. FIXME: above
-		await db.transaction(async (tx) => {
-			// this is done in a transaction just for good practice
-			await tx.delete(session).where(eq(session.userId, id));
-			await tx.delete(account).where(eq(account.userId, id));
-			await tx.delete(verification).where(eq(verification.identifier, id));
-			await tx.delete(user).where(eq(user.id, id));
-		});
+		await db.delete(session).where(eq(session.userId, id));
+		await db.delete(account).where(eq(account.userId, id));
+		await db.delete(verification).where(eq(verification.identifier, id));
+		await db.delete(user).where(eq(user.id, id));
 	}
 };

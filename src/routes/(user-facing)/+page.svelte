@@ -1,20 +1,20 @@
 <script lang="ts">
 	import GenreOptionRow from '$lib/components/layout/GenreOptionRow.svelte';
 	import MainArticle from '$lib/components/article/MainArticle.svelte';
-	import  { type Article } from '$lib/server/db/schema';
+	import { type Article } from '$lib/server/db/schema';
 	import SideArticle from '$lib/components/article/SideArticle.svelte';
 	import VerySideArticle from '$lib/components/article/VerySideArticle.svelte';
 
 	const defaultArticle: Article = {
 		date: Date.now(),
 		id: 'test-article-awawawawawa',
-		hook: "bazinga what an interesting hook to what must be such an interesting article awooga i need \n\nto make this text long enough to get interesting functionality",
-		fullText: "dsufhsudhfushdfusdfdsf\n\nsdfsdfsdfsdfadsddfhsudhfsfd\n\nsduhfusdhguewrgyuewfhg\n\nsdjgudfhgudshfgusdhfgsdfg\n\nusdfjgushfdguhsdufghusdfhgusdfhg\n\nudhfguhdfughsdf",
-		frontImage: "https://picsum.photos/1920/1080",
-		title: "such an title!!!111!",
-		ownerId: "owner-id-goes-here"
-	}
-
+		hook: 'bazinga what an interesting hook to what must be such an interesting article awooga i need \n\nto make this text long enough to get interesting functionality',
+		fullText:
+			'dsufhsudhfushdfusdfdsf\n\nsdfsdfsdfsdfadsddfhsudhfsfd\n\nsduhfusdhguewrgyuewfhg\n\nsdjgudfhgudshfgusdhfgsdfg\n\nusdfjgushfdguhsdufghusdfhgusdfhg\n\nudhfguhdfughsdf',
+		frontImage: 'https://picsum.photos/1920/1080',
+		title: 'such an title!!!111!',
+		ownerId: 'owner-id-goes-here'
+	};
 </script>
 
 <svelte:head>

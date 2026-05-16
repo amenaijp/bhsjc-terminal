@@ -3,11 +3,13 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		href: ResolvedPathname,
-		children: Snippet
+		href: ResolvedPathname;
+		children: Snippet;
 	}
 
 	let { href, children }: Props = $props();
 </script>
 
-<a {href} class="text-blue-600 hover:text-blue-700 hover:underline mx-2 w-fit">{@render children()}</a>
+<a {href} class="mx-2 w-fit text-blue-600 hover:text-blue-700 hover:underline"
+	>{@render children()}</a
+>
