@@ -20,7 +20,7 @@ export const load: PageServerLoad = async (event) => {
 				search ? like(article.title, `%${search}%`) : undefined
 			)
 		)
-		.orderBy(desc(article.createdAt));
+		.orderBy(desc(article.updatedAt));
 
 	return {
 		articles,
