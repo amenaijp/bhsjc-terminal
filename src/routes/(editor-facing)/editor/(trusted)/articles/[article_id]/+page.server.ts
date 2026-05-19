@@ -17,11 +17,7 @@ export async function load({ params, locals }) {
 export const actions: Actions = {
 	save: async ({ request, params }) => {
 		const form = await request.formData();
-		// await db.updateItem(params.id, {
-		// 	title: form.get('title'),
-		// 	body: form.get('body')
-		// 	// ...
-		// });
+
 		await db
 			.update(article)
 			.set({

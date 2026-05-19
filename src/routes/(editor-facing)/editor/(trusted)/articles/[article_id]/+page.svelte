@@ -52,9 +52,12 @@
 <div class="m-4 flex grow flex-row">
 	<p class="text-3xl">editing '{title}'</p>
 	<div class="flex grow flex-row"></div>
-	<p class="self-center" class:bg-red-100={!['synced', 'idle'].includes(syncStatus)}>
-		sync status: {syncStatus}
-	</p>
+	<div class="flex flex-col self-center">
+		<p class="self-center" class:bg-red-100={!['synced', 'idle'].includes(syncStatus)}>
+			sync status: {syncStatus}
+		</p>
+		<button onclick={() => formEl?.requestSubmit()} class="rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700">manually save</button>
+	</div>
 </div>
 
 <form
