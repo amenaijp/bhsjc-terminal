@@ -86,7 +86,7 @@
 			}
 		};
 	}}
-	class="flex flex-col"
+	class="flex flex-col gap-4"
 >
 	<!-- hidden inputs carry the $state values to the server -->
 	<input type="hidden" name="title" value={title} />
@@ -160,7 +160,7 @@
 
 	<!-- upload image/clear image/preview image -->
 	<div class="flex flex-col">
-		<label>
+		<label class="w-fit">
 			Cover image
 			<input
 				type="file"
@@ -231,8 +231,8 @@
 		{#if frontImage}
 			<div class="ml-2 flex flex-col">
 				<p>
-					Below the image as it would be shown on the front page on a large display is shown. <br />
-					Note that images are cropped to a 16:9 aspect ratio.
+					Below the image as it would be shown on the front page on a large display is shown <br />
+					Note that images are cropped to a 16:9 aspect ratio
 				</p>
 				<img src={frontImage} alt="cover preview" class="flex aspect-video max-w-3xl rounded-xs" />
 			</div>
@@ -240,16 +240,18 @@
 	</div>
 
 	<!-- edit article fullText -->
-	<label for="article-fulltext-textarea self-center" class="mt-4">Article text</label>
-	<textarea
-		id="article-fulltext-textarea"
-		oninput={(e) => {
-			fullText = e.currentTarget.value;
-			onInput();
-			autoResize();
-		}}
-		bind:this={textarea}
-		rows="1"
-		class="resize-none overflow-hidden rounded-md px-3 py-2">{fullText}</textarea
-	>
+	<div class="flex flex-col">
+		<label for="article-fulltext-textarea self-center">Article text</label>
+		<textarea
+			id="article-fulltext-textarea"
+			oninput={(e) => {
+				fullText = e.currentTarget.value;
+				onInput();
+				autoResize();
+			}}
+			bind:this={textarea}
+			rows="1"
+			class="resize-none overflow-hidden rounded-md px-3 py-2">{fullText}</textarea
+		>
+	</div>
 </form>
