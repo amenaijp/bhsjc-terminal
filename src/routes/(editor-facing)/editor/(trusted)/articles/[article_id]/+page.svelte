@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
 	import { debounce, excerpt } from '$lib/article_editor_utils';
+	import { type Genre, GENRES } from '$lib/genres';
 
 	let { data }: { data: PageData } = $props();
 
@@ -12,10 +13,11 @@
 	// - [x] toggle whether the article is published
 	// - [x] edit the text of the actual article
 	// - [x] upload images to use as the front page image
-	// - [ ] one toggle for each genre the article is a part of
+	// - [x] one toggle for each genre the article is a part of
 	// - [ ] a drop down menu to add other authors
 
 	// there _should_ be a better way to do this but for now this works
+	// fields from schema `article`
 	let title = $state($state.snapshot(data.article_data.title));
 	let fullText = $state($state.snapshot(data.article_data.fullText));
 	let userHook = $state($state.snapshot(data.article_data.userWrittenHook));
@@ -23,6 +25,9 @@
 	let openToFeedback = $state($state.snapshot(data.article_data.openToFeedback));
 	let published = $state($state.snapshot(data.article_data.published));
 	let frontImage = $state($state.snapshot(data.article_data.frontImage));
+
+	// fields from schema `articleGenre`
+	let genres = $state($state.snapshot(data.genres));
 
 	// for uploading the front image
 	let uploadError = $state<string>();
@@ -49,6 +54,16 @@
 			textarea.style.height = textarea.scrollHeight + 'px';
 		}
 	}
+
+	function toggleGenre(genre: Genre, checked: boolean) {
+		if (checked && !genres.includes(genre)) {
+			genres.push(genre);
+		} else if (!checked && genres.includes(genre)) {
+			genres.splice(genres.indexOf(genre), 1);
+		}
+	}
+
+	$inspect(genres);
 
 	$effect(() => {
 		if (textarea) {
@@ -96,6 +111,7 @@
 	<input type="hidden" name="openToFeedback" value={openToFeedback} />
 	<input type="hidden" name="published" value={published} />
 	<input type="hidden" name="frontImage" value={frontImage} />
+	<input type="hidden" name="genres" value={JSON.stringify(genres)} />
 
 	<!-- edit article title -->
 	<label>
@@ -237,6 +253,24 @@
 				<img src={frontImage} alt="cover preview" class="flex aspect-video max-w-3xl rounded-xs" />
 			</div>
 		{/if}
+	</div>
+
+	<!-- edit genres -->
+	<div class="flex flex-col">
+		<p>Select all genres your article belongs to</p>
+		{#each GENRES as genre}
+			<label class="ml-2 w-fit">
+				{genre}
+				<input
+					type="checkbox"
+					checked={genres.includes(genre)}
+					oninput={(e) => {
+						toggleGenre(genre, e.currentTarget.checked);
+						onInput();
+					}}
+				/>
+			</label>
+		{/each}
 	</div>
 
 	<!-- edit article fullText -->
