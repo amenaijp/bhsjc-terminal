@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
-	import debounce from '$lib/debouce';
+	import { debounce, excerpt } from '$lib/article_editor_utils';
 
 	let { data }: { data: PageData } = $props();
 
@@ -18,6 +18,8 @@
 	// there _should_ be a better way to do this but for now this works
 	let title = $state($state.snapshot(data.article_data.title));
 	let fullText = $state($state.snapshot(data.article_data.fullText));
+	let userHook = $state($state.snapshot(data.article_data.userWrittenHook));
+	let hook = $derived(userHook || excerpt(fullText));
 
 	let syncStatus = $state<'idle' | 'dirty' | 'syncing' | 'synced' | 'error'>('idle');
 	let formEl = $state<HTMLFormElement>();
@@ -50,7 +52,9 @@
 <div class="m-4 flex grow flex-row">
 	<p class="text-3xl">editing '{title}'</p>
 	<div class="flex grow flex-row"></div>
-	<p class="self-center" class:bg-red-100={!["synced", "idle"].includes(syncStatus)}>sync status: {syncStatus}</p>
+	<p class="self-center" class:bg-red-100={!['synced', 'idle'].includes(syncStatus)}>
+		sync status: {syncStatus}
+	</p>
 </div>
 
 <form
@@ -72,6 +76,8 @@
 	<!-- hidden inputs carry the $state values to the server -->
 	<input type="hidden" name="title" value={title} />
 	<input type="hidden" name="fullText" value={fullText} />
+	<input type="hidden" name="userWrittenHook" value={userHook} />
+	<input type="hidden" name="hook" value={hook} />
 
 	<label>
 		Article title
@@ -83,8 +89,28 @@
 			}}
 		/>
 	</label>
-
-	<label for="article-fulltext-textarea" class="mt-4">Article text</label>
+	<div class="flex flex-row">
+		<label class="my-2 flex flex-1 flex-row items-center">
+			Article Hook
+			<textarea
+				class="ml-2 w-full rounded-md px-3 py-2"
+				rows="4"
+				oninput={(e) => {
+					userHook = e.currentTarget.value;
+					onInput();
+				}}>{userHook}</textarea
+			>
+		</label>
+		<p class="mx-4 flex-1">
+			If you don't provide your own hook, up to the first three sentences of your article will be
+			used instead. <br />
+			recommended: ~100 characters, max: 200 characters, current: {userHook.length || hook.length} characters
+			<br />
+			current hook: <br />
+			{hook}
+		</p>
+	</div>
+	<label for="article-fulltext-textarea self-center" class="mt-4">Article text</label>
 	<textarea
 		id="article-fulltext-textarea"
 		oninput={(e) => {

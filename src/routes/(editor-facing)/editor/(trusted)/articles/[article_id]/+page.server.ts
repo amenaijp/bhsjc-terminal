@@ -26,7 +26,9 @@ export const actions: Actions = {
 			.update(article)
 			.set({
 				title: (form.get('title') as string) ?? '',
-				fullText: (form.get('fullText') as string) ?? ''
+				fullText: (form.get('fullText') as string) ?? '',
+				userWrittenHook: (form.get('userWrittenHook') as string) ?? '',
+				hook: (form.get('hook') as string) ?? ''
 			})
 			.where(eq(article.id, params.article_id));
 		return { success: true };
