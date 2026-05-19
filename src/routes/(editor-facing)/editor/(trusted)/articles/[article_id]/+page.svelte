@@ -7,9 +7,9 @@
 
 	// we need to be able to edit:
 	// - [x] article title
-	// - [ ] user written hook (and be able to see the current hook)
-	// - [ ] toggle whether the article is OTF
-	// - [ ] toggle whether the article is published
+	// - [x] user written hook (and be able to see the current hook)
+	// - [x] toggle whether the article is OTF
+	// - [x] toggle whether the article is published
 	// - [x] edit the text of the actual article
 	// - [ ] upload images to use as the front page image
 	// - [ ] one toggle for each genre the article is a part of
@@ -20,6 +20,8 @@
 	let fullText = $state($state.snapshot(data.article_data.fullText));
 	let userHook = $state($state.snapshot(data.article_data.userWrittenHook));
 	let hook = $derived(userHook || excerpt(fullText));
+	let openToFeedback = $state($state.snapshot(data.article_data.openToFeedback));
+	let published = $state($state.snapshot(data.article_data.published));
 
 	let syncStatus = $state<'idle' | 'dirty' | 'syncing' | 'synced' | 'error'>('idle');
 	let formEl = $state<HTMLFormElement>();
@@ -56,7 +58,11 @@
 		<p class="self-center" class:bg-red-100={!['synced', 'idle'].includes(syncStatus)}>
 			sync status: {syncStatus}
 		</p>
-		<button onclick={() => formEl?.requestSubmit()} class="rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700">manually save</button>
+		<button
+			onclick={() => formEl?.requestSubmit()}
+			class="rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
+			>manually save</button
+		>
 	</div>
 </div>
 
@@ -81,7 +87,10 @@
 	<input type="hidden" name="fullText" value={fullText} />
 	<input type="hidden" name="userWrittenHook" value={userHook} />
 	<input type="hidden" name="hook" value={hook} />
+	<input type="hidden" name="openToFeedback" value={openToFeedback} />
+	<input type="hidden" name="published" value={published} />
 
+	<!-- edit article title -->
 	<label>
 		Article title
 		<input
@@ -92,6 +101,8 @@
 			}}
 		/>
 	</label>
+
+	<!-- edit hook -->
 	<div class="flex flex-row">
 		<label class="my-2 flex flex-1 flex-row items-center">
 			Article Hook
@@ -113,6 +124,34 @@
 			{hook}
 		</p>
 	</div>
+
+	<!-- boolean edits (OTF, published) -->
+	<div class="flex flex-col">
+		<label class="flex w-fit flex-row items-center gap-2">
+			Article is OTF? (open for feedback, any editor can see the article)
+			<input
+				checked={openToFeedback}
+				oninput={(e) => {
+					openToFeedback = e.currentTarget.checked;
+					onInput();
+				}}
+				type="checkbox"
+			/>
+		</label>
+		<label class="flex w-fit flex-row items-center gap-2">
+			Article is published? (visible on the main website)
+			<input
+				checked={published}
+				oninput={(e) => {
+					published = e.currentTarget.checked;
+					onInput();
+				}}
+				type="checkbox"
+			/>
+		</label>
+	</div>
+
+	<!-- edit article fullText -->
 	<label for="article-fulltext-textarea self-center" class="mt-4">Article text</label>
 	<textarea
 		id="article-fulltext-textarea"

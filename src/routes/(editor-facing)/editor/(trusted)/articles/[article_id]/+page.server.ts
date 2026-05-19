@@ -24,7 +24,9 @@ export const actions: Actions = {
 				title: (form.get('title') as string) ?? '',
 				fullText: (form.get('fullText') as string) ?? '',
 				userWrittenHook: (form.get('userWrittenHook') as string) ?? '',
-				hook: (form.get('hook') as string) ?? ''
+				hook: (form.get('hook') as string) ?? '',
+				openToFeedback: form.get('openToFeedback') === 'true',
+				published: form.get('published') === 'true'
 			})
 			.where(eq(article.id, params.article_id));
 		return { success: true };
