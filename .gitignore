@@ -28,3 +28,6 @@ vite.config.ts.timestamp-*
 *.db
 *.db-shm
 *.db-wal
+
+# user uploaded images
+static/user_uploads/

@@ -11,7 +11,7 @@
 	// - [x] toggle whether the article is OTF
 	// - [x] toggle whether the article is published
 	// - [x] edit the text of the actual article
-	// - [ ] upload images to use as the front page image
+	// - [x] upload images to use as the front page image
 	// - [ ] one toggle for each genre the article is a part of
 	// - [ ] a drop down menu to add other authors
 
@@ -22,12 +22,18 @@
 	let hook = $derived(userHook || excerpt(fullText));
 	let openToFeedback = $state($state.snapshot(data.article_data.openToFeedback));
 	let published = $state($state.snapshot(data.article_data.published));
+	let frontImage = $state($state.snapshot(data.article_data.frontImage));
+
+	// for uploading the front image
+	let uploadError = $state<string>();
+	let uploading = $state(false);
+	let uploadImageElement = $state<HTMLInputElement>();
 
 	let syncStatus = $state<'idle' | 'dirty' | 'syncing' | 'synced' | 'error'>('idle');
-	let formEl = $state<HTMLFormElement>();
+	let FormElement = $state<HTMLFormElement>();
 
 	const triggerSave = debounce(() => {
-		formEl?.requestSubmit();
+		FormElement?.requestSubmit();
 	}, 1000);
 
 	function onInput() {
@@ -59,7 +65,7 @@
 			sync status: {syncStatus}
 		</p>
 		<button
-			onclick={() => formEl?.requestSubmit()}
+			onclick={() => FormElement?.requestSubmit()}
 			class="rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
 			>manually save</button
 		>
@@ -69,7 +75,7 @@
 <form
 	method="POST"
 	action="?/save"
-	bind:this={formEl}
+	bind:this={FormElement}
 	use:enhance={() => {
 		syncStatus = 'syncing';
 		return async ({ result }) => {
@@ -89,6 +95,7 @@
 	<input type="hidden" name="hook" value={hook} />
 	<input type="hidden" name="openToFeedback" value={openToFeedback} />
 	<input type="hidden" name="published" value={published} />
+	<input type="hidden" name="frontImage" value={frontImage} />
 
 	<!-- edit article title -->
 	<label>
@@ -149,6 +156,87 @@
 				type="checkbox"
 			/>
 		</label>
+	</div>
+
+	<!-- upload image/clear image/preview image -->
+	<div class="flex flex-col">
+		<label>
+			Cover image
+			<input
+				type="file"
+				accept="image/*"
+				bind:this={uploadImageElement}
+				class="hidden"
+				onchange={async (e) => {
+					const file = e.currentTarget.files?.[0];
+					if (!file) return;
+
+					// client-side check before even hitting the server
+					if (file.size > 25 * 1024 * 1024) {
+						uploadError = 'Image must be under 25MB';
+						return;
+					}
+
+					uploadError = '';
+					uploading = true;
+
+					try {
+						const fd = new FormData();
+						fd.append('image', file);
+
+						// see /routes/(editor-facing)/editor/(trusted)/image-upload/+server.ts
+						const res = await fetch('/editor/image-upload', { method: 'POST', body: fd });
+
+						if (!res.ok) {
+							const { message } = await res.json();
+							uploadError = message ?? 'Upload failed';
+							return;
+						}
+
+						const { url } = await res.json();
+						frontImage = url;
+						onInput(); // sync the new image url to the server
+					} catch (e) {
+						uploadError = 'Something went wrong, please try again';
+					} finally {
+						uploading = false;
+					}
+				}}
+			/>
+			<button
+				class="m-2 w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
+				onclick={() => uploadImageElement?.click()}
+			>
+				{frontImage ? 'Change image...' : 'Upload an image...'}
+			</button>
+			<button
+				class="m-2 w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
+				onclick={() => {
+					frontImage = '';
+					onInput();
+				}}
+			>
+				Clear Image
+			</button>
+		</label>
+
+		{#if uploadError}
+			<p class="text-red-600">{uploadError}</p>
+		{/if}
+
+		{#if uploading}
+			<p>Uploading...</p>
+		{/if}
+
+		{#if frontImage}
+			<div class="ml-2 flex flex-col">
+				<p>
+					Below the image as it would be shown on the front page on a large display is shown. <br />
+					Note that images are cropped to a 16:9 aspect ratio.
+				</p>
+				<img src={frontImage} alt="cover preview" class="flex aspect-video max-w-3xl rounded-xs" />
+			</div>
+		{/if}
 	</div>
 
 	<!-- edit article fullText -->

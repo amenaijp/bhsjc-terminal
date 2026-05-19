@@ -26,7 +26,8 @@ export const actions: Actions = {
 				userWrittenHook: (form.get('userWrittenHook') as string) ?? '',
 				hook: (form.get('hook') as string) ?? '',
 				openToFeedback: form.get('openToFeedback') === 'true',
-				published: form.get('published') === 'true'
+				published: form.get('published') === 'true',
+				frontImage: (form.get('frontImage') as string) ?? ''
 			})
 			.where(eq(article.id, params.article_id));
 		return { success: true };
