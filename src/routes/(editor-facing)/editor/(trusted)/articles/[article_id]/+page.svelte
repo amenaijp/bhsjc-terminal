@@ -89,6 +89,11 @@
 <div class="m-4 flex grow flex-row">
 	<p class="text-3xl">editing '{title}'</p>
 	<div class="flex grow flex-row"></div>
+	<button
+		class="mx-4 self-center rounded-sm bg-red-600 px-2 py-1 text-white transition hover:bg-red-700"
+	>
+		delete
+	</button>
 	<div class="flex flex-col self-center">
 		<p class="self-center" class:bg-red-100={!['synced', 'idle'].includes(syncStatus)}>
 			sync status: {syncStatus}
@@ -236,7 +241,7 @@
 
 		<!-- selected co-authors -->
 		{#each coauthors as author}
-			<div class="flex flex-row items-center gap-2 ml-4">
+			<div class="ml-4 flex flex-row items-center gap-2">
 				<p>{author.name}</p>
 				<button
 					type="button"
@@ -327,7 +332,9 @@
 					Below the image as it would be shown on the front page on a large display is shown <br />
 					Note that images are cropped to a 16:9 aspect ratio
 				</p>
-				<img src={frontImage} alt="cover preview" class="flex aspect-video max-w-3xl rounded-xs" />
+				<div class="aspect-video max-w-3xl overflow-hidden rounded-xs">
+					<img src={frontImage} alt="cover preview" class="h-full w-full object-cover" />
+				</div>
 			</div>
 		{/if}
 	</div>

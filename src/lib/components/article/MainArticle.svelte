@@ -12,11 +12,11 @@
 
 <Article link={resolve(`/article/${article.id}`)}>
 	<!-- FIXME: if we ever add a dark mode, the opacity trick won't work here-->
-	<img
-		alt="Front page"
-		class="flex aspect-video transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
-		src={article.frontImage}
-	/>
+	<div
+		class="aspect-video overflow-hidden transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
+	>
+		<img alt="Front page" class="h-full w-full object-cover" src={article.frontImage} />
+	</div>
 	<h2
 		class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl"
 	>
