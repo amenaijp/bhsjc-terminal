@@ -14,7 +14,7 @@
 	// - [x] edit the text of the actual article
 	// - [x] upload images to use as the front page image
 	// - [x] one toggle for each genre the article is a part of
-	// - [ ] a drop down menu to add other authors
+	// - [x] a drop-down menu to add other authors
 
 	// there _should_ be a better way to do this but for now this works
 	// fields from schema `article`
@@ -28,6 +28,12 @@
 
 	// fields from schema `articleGenre`
 	let genres = $state($state.snapshot(data.genres));
+
+	// fields for the co-authors feature
+	let authorQuery = $state('');
+	let suggestions = $state<{ id: string; name: string }[]>([]);
+	let coauthors = $state<{ id: string; name: string }[]>(data.article_authors);
+	let showSuggestions = $state(false);
 
 	// for uploading the front image
 	let uploadError = $state<string>();
@@ -63,7 +69,15 @@
 		}
 	}
 
-	$inspect(genres);
+	const searchAuthors = debounce(async (q: string) => {
+		if (!q) {
+			suggestions = [];
+			return;
+		}
+		const res = await fetch(`/editor/author-query?q=${encodeURIComponent(q)}`);
+		suggestions = await res.json();
+		showSuggestions = true;
+	}, 200);
 
 	$effect(() => {
 		if (textarea) {
@@ -112,6 +126,7 @@
 	<input type="hidden" name="published" value={published} />
 	<input type="hidden" name="frontImage" value={frontImage} />
 	<input type="hidden" name="genres" value={JSON.stringify(genres)} />
+	<input type="hidden" name="coauthors" value={JSON.stringify(coauthors.map((a) => a.id))} />
 
 	<!-- edit article title -->
 	<label>
@@ -172,6 +187,68 @@
 				type="checkbox"
 			/>
 		</label>
+	</div>
+
+	<!-- co-author search -->
+	<div class="flex flex-col">
+		<p>
+			Co-authors (They won't be able to edit this article, but on the main website you will all be
+			listed) <br />
+			You, as the article owner, will always be listed on the article regardless of your options here.
+		</p>
+
+		<div class="relative w-fit">
+			<input
+				type="text"
+				placeholder="Search for co-authors..."
+				value={authorQuery}
+				oninput={(e) => {
+					authorQuery = e.currentTarget.value;
+					searchAuthors(authorQuery);
+				}}
+				onblur={() => setTimeout(() => (showSuggestions = false), 150)}
+			/>
+
+			{#if showSuggestions && suggestions.length > 0}
+				<ul class="absolute z-10 w-full rounded-md border bg-white shadow-md">
+					{#each suggestions as user}
+						<li>
+							<button
+								type="button"
+								class="w-full px-3 py-2 text-left hover:bg-gray-100"
+								onclick={() => {
+									if (!coauthors.find((a) => a.id === user.id)) {
+										coauthors.push(user);
+									}
+									authorQuery = '';
+									suggestions = [];
+									showSuggestions = false;
+									onInput();
+								}}
+							>
+								{user.name}
+							</button>
+						</li>
+					{/each}
+				</ul>
+			{/if}
+		</div>
+
+		<!-- selected co-authors -->
+		{#each coauthors as author}
+			<div class="flex flex-row items-center gap-2 ml-4">
+				<p>{author.name}</p>
+				<button
+					type="button"
+					onclick={() => {
+						coauthors.splice(coauthors.indexOf(author), 1);
+						onInput();
+					}}
+					class="m-2 w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
+					>remove</button
+				>
+			</div>
+		{/each}
 	</div>
 
 	<!-- upload image/clear image/preview image -->
@@ -257,7 +334,7 @@
 
 	<!-- edit genres -->
 	<div class="flex flex-col">
-		<p>Select all genres your article belongs to</p>
+		<p>Select all genres your article belongs to:</p>
 		{#each GENRES as genre}
 			<label class="ml-2 w-fit">
 				{genre}
