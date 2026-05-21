@@ -86,16 +86,19 @@
 	});
 </script>
 
-<div class="m-4 flex grow flex-row">
+<div class="m-4 flex grow flex-row items-center">
 	<p class="text-3xl">editing '{title}'</p>
 	<div class="flex grow flex-row"></div>
-	<button
-		class="mx-4 self-center rounded-sm bg-red-600 px-2 py-1 text-white transition hover:bg-red-700"
-	>
-		delete
-	</button>
-	<div class="flex flex-col self-center">
-		<p class="self-center" class:bg-red-100={!['synced', 'idle'].includes(syncStatus)}>
+	<form method="POST" action="?/delete" use:enhance>
+		<button
+			type="submit"
+			class="mx-4 rounded-sm bg-red-600 px-2 py-1 text-white transition hover:bg-red-700"
+		>
+			delete article
+		</button>
+	</form>
+	<div class="flex flex-col">
+		<p class:bg-red-100={!['synced', 'idle'].includes(syncStatus)}>
 			sync status: {syncStatus}
 		</p>
 		<button

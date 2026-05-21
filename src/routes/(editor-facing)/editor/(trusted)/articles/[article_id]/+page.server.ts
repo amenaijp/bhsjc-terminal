@@ -1,9 +1,10 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { article, articleAuthor, articleGenre, user } from '$lib/server/db/schema';
-import { and, eq, inArray } from 'drizzle-orm';
+import { and, eq, inArray, not } from 'drizzle-orm';
 import type { Actions } from './$types';
 import type { Genre } from '$lib/genres';
+import { resolve } from '$app/paths';
 
 export async function load({ params, locals }) {
 	if (!locals.user) return error(403);
@@ -22,7 +23,9 @@ export async function load({ params, locals }) {
 		.select({ id: user.id, name: user.name })
 		.from(articleAuthor)
 		.innerJoin(user, eq(articleAuthor.editorId, user.id))
-		.where(eq(articleAuthor.articleId, article_id));
+		.where(
+			and(eq(articleAuthor.articleId, article_id), not(eq(articleAuthor.editorId, locals.user.id)))
+		);
 
 	return { article_data, genres, article_authors };
 }
@@ -105,5 +108,25 @@ export const actions: Actions = {
 			})
 			.where(eq(article.id, params.article_id));
 		return { success: true };
+	},
+	delete: async ({ params, locals }) => {
+		if (!locals.user) return error(403);
+		// query the db for the article and confirm that the user trying to delete is really the owner; if it is, delete the
+		// article, associated articleGenres, and associated articleAuthors
+		const target_article = db
+			.select()
+			.from(article)
+			.where(and(eq(article.id, params.article_id), eq(article.ownerId, locals.user.id)))
+			.get();
+		if (!target_article) return error(404); // either no article exists or wrong user is deleting (or both)
+		let delete_genres = db
+			.delete(articleGenre)
+			.where(eq(articleGenre.articleId, params.article_id));
+		let delete_authors = db
+			.delete(articleAuthor)
+			.where(eq(articleAuthor.articleId, params.article_id));
+		await Promise.all([delete_genres, delete_authors]); // to satisfy the foreign key constraints
+		await db.delete(article).where(eq(article.id, params.article_id));
+		return redirect(302, resolve('/editor/articles'));
 	}
 };
