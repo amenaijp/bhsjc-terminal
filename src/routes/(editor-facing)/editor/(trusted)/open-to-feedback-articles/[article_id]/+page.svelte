@@ -30,11 +30,15 @@
 			<div class="flex flex-1"></div>
 			<p class="md:text-md mt-3 self-center text-left text-sm text-[#666666]">
 				Genre{data.genres.length > 1 ? 's' : ''}:
-				{#each data.genres as genre, i}
-					<span class="text-black hover:cursor-pointer hover:underline"
-						>{genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)}</span
-					>{#if i < data.genres.length - 1}{', '}{/if}
-				{/each}
+				{#if data.genres.length > 1}
+					{#each data.genres as genre, i}
+						<span class="text-black hover:cursor-pointer hover:underline"
+							>{genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)}</span
+						>{#if i < data.genres.length - 1}{', '}{/if}
+					{/each}
+				{:else}
+					none
+				{/if}
 			</p>
 		</div>
 		<p class="md:text-md mt-3 text-left text-sm wrap-anywhere">
@@ -52,7 +56,7 @@
 			<img alt="" class="h-full w-full object-cover" src={data.article.frontImage} />
 		</div>
 	{/if}
-	<div class="flex flex-col self-center px-3 md:max-w-150 lg:max-w-200">
+	<div class="flex flex-row self-center px-3 md:w-150 lg:w-200">
 		<!-- whitespace-pre-wrap is just to get \n\n to render while using lorem ipsum, remove when using markdown-->
 		<p class="text-left font-[Playfair] text-lg wrap-anywhere whitespace-pre-line md:text-xl">
 			{data.article.fullText}
