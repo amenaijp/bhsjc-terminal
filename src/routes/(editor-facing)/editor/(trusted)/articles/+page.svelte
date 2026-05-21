@@ -31,6 +31,7 @@
 				<th class="px-2 pb-2 text-left">created at (dd/mm/yyyy en-nz)</th>
 				<th class="px-2 pb-2 text-left">updated at (dd/mm/yyyy en-nz)</th>
 				<th class="px-2 pb-2 text-left">open to feedback (OTF)</th>
+				<th class="px-2 pb-2 teext-left">published</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -54,6 +55,7 @@
 						})}</td
 					>
 					<td class="px-2 py-1">{article.openToFeedback}</td>
+					<td class="px py-1">{article.published}</td>
 				</tr>
 			{/each}
 		</tbody>
