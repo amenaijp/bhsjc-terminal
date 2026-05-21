@@ -175,6 +175,24 @@ export const layoutSlot = sqliteTable(
 	(table) => [primaryKey({ columns: [table.page, table.slotType, table.position] })]
 );
 
-export type Article = typeof article.$inferSelect;
+export type MainArticleScaffold = {
+	title: string;
+	hook: string;
+	frontImage: string;
+	id: string;
+} | null;
+
+export type SideArticleScaffold = {
+	title: string;
+	hook: string;
+	id: string;
+} | null;
+
+export type VerySideArticleScaffold = {
+	title: string;
+	hook: string;
+	id: string;
+} | null;
+
 export type User = typeof user.$inferSelect;
 // export type NewArticle = typeof article.$inferInsert;

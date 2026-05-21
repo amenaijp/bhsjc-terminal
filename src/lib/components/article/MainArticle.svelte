@@ -1,30 +1,31 @@
 <script lang="ts">
 	import Article from '$lib/components/article/Article.svelte';
-	import type { Article as ArticleType } from '$lib/server/db/schema';
 	import { resolve } from '$app/paths';
+	import type { MainArticleScaffold } from '$lib/server/db/schema';
 
-	interface Props {
-		article: ArticleType;
-	}
-
-	let { article }: Props = $props();
+	let { article }: { article: MainArticleScaffold } = $props();
 </script>
 
-<Article link={resolve(`/article/${article.id}`)}>
-	<!-- FIXME: if we ever add a dark mode, the opacity trick won't work here-->
-	<div
-		class="aspect-video overflow-hidden transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
-	>
-		<img alt="Front page" class="h-full w-full object-cover" src={article.frontImage} />
-	</div>
-	<h2
-		class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl"
-	>
-		{article.title}
-	</h2>
-	<p
-		class="text-md mx-4 mt-1 self-center text-center font-[Playfair] wrap-anywhere text-[#132d23] md:text-lg"
-	>
-		{article.hook}
-	</p>
-</Article>
+{#if article}
+	<Article link={resolve(`/article/${article.id}`)}>
+		<!-- FIXME: if we ever add a dark mode, the opacity trick won't work here-->
+		<div
+			class="aspect-video overflow-hidden transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
+		>
+			<img alt="Front page" class="h-full w-full object-cover" src={article.frontImage} />
+		</div>
+		<h2
+			class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl"
+		>
+			{article.title}
+		</h2>
+		<p
+			class="text-md mx-4 mt-1 self-center text-center font-[Playfair] wrap-anywhere text-[#132d23] md:text-lg"
+		>
+			{article.hook}
+		</p>
+	</Article>
+{:else}
+	<div class="aspect-video w-full animate-pulse rounded-xs bg-gray-200 md:rounded-xs"></div>
+{/if}
+

@@ -37,7 +37,11 @@
 	}
 
 	const searchArticles = debounce(async (q: string) => {
-		if (!q) { suggestions = []; showSuggestions = false; return; }
+		if (!q) {
+			suggestions = [];
+			showSuggestions = false;
+			return;
+		}
 		const params = new URLSearchParams({ q });
 		if (selected?.page && selected.page !== 'front') params.set('page', selected.page);
 		const res = await fetch(`/editor/search-articles?${params}`);
