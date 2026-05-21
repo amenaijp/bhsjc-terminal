@@ -1,15 +1,18 @@
 import { db } from '$lib/server/db';
 import {
 	article,
+	articleGenre,
 	layoutSlot,
 	type MainArticleScaffold,
-	type SideArticleScaffold,
-	type VerySideArticleScaffold
+	type SideArticleScaffold
 } from '$lib/server/db/schema';
 import { and, desc, eq, inArray, notInArray } from 'drizzle-orm';
+import type { Genre } from '$lib/genres';
 
-export async function load() {
-	const slots = await db.select().from(layoutSlot).where(eq(layoutSlot.page, 'front'));
+export async function load({ params }) {
+	const genre = params.genre as Genre;
+
+	const slots = await db.select().from(layoutSlot).where(eq(layoutSlot.page, genre));
 
 	const pinnedIds = slots.map((s) => s.articleId).filter(Boolean) as string[];
 	const autoCount = slots.filter((s) => !s.articleId).length;
@@ -21,40 +24,45 @@ export async function load() {
 		frontImage: article.frontImage
 	};
 
+	// articles must belong to the target genre
+	const inGenre = eq(articleGenre.genre, genre);
+
 	const [pinned, autoRaw] = await Promise.all([
 		pinnedIds.length > 0
-			? db.select(select).from(article).where(inArray(article.id, pinnedIds))
+			? db
+					.select(select)
+					.from(article)
+					.innerJoin(articleGenre, eq(articleGenre.articleId, article.id))
+					.where(and(inArray(article.id, pinnedIds), inGenre))
 			: [],
 		autoCount > 0
 			? db
 					.select(select)
 					.from(article)
+					.innerJoin(articleGenre, eq(articleGenre.articleId, article.id))
 					.where(
 						and(
 							eq(article.published, true),
+							inGenre,
 							pinnedIds.length > 0 ? notInArray(article.id, pinnedIds) : undefined
 						)
 					)
 					.orderBy(desc(article.updatedAt))
-					// fetch extra in case we need to skip imageless articles for main
 					.limit(autoCount + 10)
 			: []
 	]);
 
 	const pinnedMap = new Map(pinned.map((a) => [a.id, a]));
 
-	// build auto pool, but if main slot is auto, ensure the first article has a frontImage
 	const mainSlot = slots.find((s) => s.slotType === 'main')!;
 	let auto = [...autoRaw];
 	if (!mainSlot.articleId) {
 		const mainCandidateIndex = auto.findIndex((a) => a.frontImage);
 		if (mainCandidateIndex > 0) {
-			// move the first image-having article to the front, preserve order of the rest
 			const [candidate] = auto.splice(mainCandidateIndex, 1);
 			auto = [candidate, ...auto];
 		}
 	}
-	// trim back to autoCount now that we've reordered
 	auto = auto.slice(0, autoCount);
 
 	let autoIndex = 0;
@@ -67,9 +75,9 @@ export async function load() {
 		.filter((s) => s.slotType === 'side')
 		.sort((a, b) => a.position - b.position)
 		.map(resolve);
-	const verySide = resolve(slots.find((s) => s.slotType === 'very_side')!);
 
 	return {
+		genre,
 		main:
 			main &&
 			({
@@ -80,9 +88,6 @@ export async function load() {
 			} as MainArticleScaffold),
 		sides: sides.map(
 			(a) => a && { id: a.id, title: a.title, hook: a.hook }
-		) as SideArticleScaffold[],
-		verySide:
-			verySide &&
-			({ id: verySide.id, title: verySide.title, hook: verySide.hook } as VerySideArticleScaffold)
+		) as SideArticleScaffold[]
 	};
 }

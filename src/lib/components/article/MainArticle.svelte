@@ -26,6 +26,5 @@
 		</p>
 	</Article>
 {:else}
-	<div class="aspect-video w-full animate-pulse rounded-xs bg-gray-200 md:rounded-xs"></div>
+	<div class="w-full h-full animate-pulse rounded-xs bg-gray-200 md:rounded-xs flex"></div>
 {/if}
-

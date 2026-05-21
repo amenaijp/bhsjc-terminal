@@ -1,25 +1,13 @@
 <script lang="ts">
 	import GenreOptionRow from '$lib/components/layout/GenreOptionRow.svelte';
-	import type { Article } from '$lib/server/db/schema';
 	import MainArticle from '$lib/components/article/MainArticle.svelte';
 	import SideArticle from '$lib/components/article/SideArticle.svelte';
 	import { resolve } from '$app/paths';
 	import type { PageData } from './$types';
 
-	const defaultArticle: Article = {
-		date: Date.now(),
-		id: 'test-article-awawawawawa',
-		hook: 'bazinga what an interesting hook to what must be such an interesting article awooga i need \n\nto make this text long enough to get interesting functionality',
-		fullText:
-			'dsufhsudhfushdfusdfdsf\n\nsdfsdfsdfsdfadsddfhsudhfsfd\n\nsduhfusdhguewrgyuewfhg\n\nsdjgudfhgudshfgusdhfgsdfg\n\nusdfjgushfdguhsdufghusdfhgusdfhg\n\nudhfguhdfughsdf',
-		frontImage: 'https://picsum.photos/1920/1080',
-		title: 'genre an title!!!111!',
-		ownerId: 'owner-id-goes-here'
-	};
-
 	let { data }: { data: PageData } = $props();
 
-	const label = data.genre.charAt(0).toUpperCase() + data.genre.slice(1);
+	const label = $derived(data.genre.charAt(0).toUpperCase() + data.genre.slice(1));
 </script>
 
 <svelte:head>
@@ -46,7 +34,7 @@
 	<!-- Main article, very side article-->
 	<div class="col-start-1 row-start-1 flex flex-col md:col-span-4 md:row-span-2 lg:col-span-2">
 		<!-- Main Article -->
-		<MainArticle article={defaultArticle} />
+		<MainArticle article={data.main} />
 	</div>
 
 	<!-- Mobile divider between main article and side articles -->
@@ -57,15 +45,15 @@
 		class="flex flex-col px-2 md:col-span-2 md:col-start-5 md:row-span-2 md:row-start-1 md:mt-6 lg:col-span-1 lg:col-start-3"
 	>
 		<!-- Side Article 1 -->
-		<SideArticle article={defaultArticle} />
+		<SideArticle article={data.sides[0]} />
 		<!-- Divider -->
 		<div class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0]"></div>
 		<!-- Side Article 2 -->
-		<SideArticle article={defaultArticle} />
+		<SideArticle article={data.sides[1]} />
 		<!-- Divider -->
 		<div class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0]"></div>
 		<!-- Side Article 3 -->
-		<SideArticle article={defaultArticle} />
+		<SideArticle article={data.sides[2]} />
 	</div>
 
 	<!-- Mobile divider between side articles and join us -->
@@ -78,18 +66,18 @@
 		class="flex flex-col px-2 md:col-span-6 md:col-start-1 md:row-start-4 md:mt-6 md:flex-row lg:col-span-1 lg:col-start-4 lg:row-start-1 lg:flex-col"
 	>
 		<!-- Side Article 4 -->
-		<SideArticle article={defaultArticle} />
+		<SideArticle article={data.sides[3]} />
 		<!-- Divider -->
 		<div
 			class="mx-8 my-4 flex h-0.5 w-auto shrink-0 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
 		></div>
 		<!-- Side Article 5 -->
-		<SideArticle article={defaultArticle} />
+		<SideArticle article={data.sides[4]} />
 		<!-- Divider -->
 		<div
 			class="mx-8 my-4 flex h-0.5 w-auto shrink-0 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
 		></div>
 		<!-- Side Article 6 -->
-		<SideArticle article={defaultArticle} />
+		<SideArticle article={data.sides[5]} />
 	</div>
 </div>
