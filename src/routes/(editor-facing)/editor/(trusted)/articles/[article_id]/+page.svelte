@@ -17,6 +17,8 @@
 	// - [x] a drop-down menu to add other authors
 
 	// there _should_ be a better way to do this but for now this works
+	// FIXME: find the better way
+	// FIXME: one day have the whole codebase be svelte-check compliant
 	// fields from schema `article`
 	let title = $state($state.snapshot(data.article_data.title));
 	let fullText = $state($state.snapshot(data.article_data.fullText));

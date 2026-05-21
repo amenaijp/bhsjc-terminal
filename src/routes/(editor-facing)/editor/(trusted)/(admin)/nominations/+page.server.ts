@@ -4,6 +4,8 @@ import { article, articleAuthor, layoutSlot, user } from '$lib/server/db/schema'
 import { db } from '$lib/server/db';
 import { resolve } from '$app/paths';
 
+// FIXME: as with many load functions, there has to be a better way to do what is being done here
+
 export async function load({ locals }) {
 	if (locals.user?.userType != 'admin') {
 		return redirect(302, resolve('/editor/dashboard'));

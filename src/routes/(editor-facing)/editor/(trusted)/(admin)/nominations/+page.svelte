@@ -4,6 +4,10 @@
 	import { debounce } from '$lib/article_editor_utils';
 	import { invalidateAll } from '$app/navigation';
 
+	// fixme: generally go over this whole file and understand exactly what is being done and why
+	// fixme: double check the functionality for bugs
+	// fixme: find a way to fix the typing issue on ts/js for the snippets
+
 	let { data }: { data: PageData } = $props();
 
 	type LayoutItem = PageData['layout'][number];
