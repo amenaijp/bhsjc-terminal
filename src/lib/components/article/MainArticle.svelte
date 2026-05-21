@@ -15,7 +15,7 @@
 			<img alt="Front page" class="h-full w-full object-cover" src={article.frontImage} />
 		</div>
 		<h2
-			class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl"
+			class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl text-center"
 		>
 			{article.title}
 		</h2>

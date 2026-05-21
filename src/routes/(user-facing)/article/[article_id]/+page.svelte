@@ -4,6 +4,7 @@
 	import { resolve } from '$app/paths';
 
 	let { data }: { data: PageData } = $props();
+	$inspect(data.genres)
 </script>
 
 <svelte:head>
@@ -29,7 +30,7 @@
 			<div class="flex flex-1"></div>
 			<p class="md:text-md mt-3 self-center text-left text-sm text-[#666666]">
 				Genre{data.genres.length > 1 ? 's' : ''}:
-				{#if data.genres.length > 1}
+				{#if data.genres.length > 0}
 					{#each data.genres as genre, i}
 						<a
 							class="text-black hover:cursor-pointer hover:underline"
