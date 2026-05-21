@@ -305,7 +305,8 @@
 				}}
 			/>
 			<button
-				class="m-2 w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700" type="button"
+				class="m-2 w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
+				type="button"
 				onclick={() => uploadImageElement?.click()}
 			>
 				{frontImage ? 'Change image...' : 'Upload an image...'}

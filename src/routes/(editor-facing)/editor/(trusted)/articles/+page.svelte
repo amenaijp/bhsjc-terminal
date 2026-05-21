@@ -31,7 +31,7 @@
 				<th class="px-2 pb-2 text-left">created at (dd/mm/yyyy en-nz)</th>
 				<th class="px-2 pb-2 text-left">updated at (dd/mm/yyyy en-nz)</th>
 				<th class="px-2 pb-2 text-left">open to feedback (OTF)</th>
-				<th class="px-2 pb-2 teext-left">published</th>
+				<th class="px-2 pb-2 text-left">published</th>
 			</tr>
 		</thead>
 		<tbody>
