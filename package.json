@@ -54,6 +54,7 @@
 		"@fontsource/playfair-display": "^5.2.8",
 		"@fontsource/playfair-display-sc": "^5.2.8",
 		"better-sqlite3": "^12.10.0",
+		"date-fns": "^4.2.1",
 		"nanoid": "^5.1.11"
 	}
 }
