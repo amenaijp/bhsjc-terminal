@@ -3,6 +3,7 @@
 	import Link from '$lib/components/editors/link.svelte';
 
 	let { data }: { data: PageData } = $props();
+	// FIXME: would be nice if this showed you how many published and unpublished articles you owned
 </script>
 
 <p>

@@ -6,6 +6,8 @@ import { getRequestEvent } from '$app/server';
 import { db } from '$lib/server/db';
 import type { User as DrizzleUser } from '$lib/server/db/schema';
 
+// FIXME: play around with the auth and resend https://resend.com/onboarding for email verification
+
 export const auth = betterAuth({
 	baseURL: env.ORIGIN,
 	secret: env.BETTER_AUTH_SECRET,

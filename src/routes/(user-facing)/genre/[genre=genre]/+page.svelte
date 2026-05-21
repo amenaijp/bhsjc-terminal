@@ -14,6 +14,9 @@
 	<title>{label}</title>
 </svelte:head>
 
+<!-- FIXME: divider should really be put into it's own component, it's used _so_ much across the codebase -->
+<!-- FIXME: consistent button styling and component, all in the style of the 'set to auto' button on nominations -->
+
 <!-- genre selector -->
 <GenreOptionRow select={data.genre} />
 

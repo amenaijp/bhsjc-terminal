@@ -4,6 +4,8 @@ import { layoutSlot } from '$lib/server/db/schema';
 import { and, eq } from 'drizzle-orm';
 import type { Genre } from '$lib/genres';
 
+// FIXME: is this the best way to go around this?
+
 export const POST = async ({ request, locals }) => {
 	if (locals.user?.userType !== 'admin') {
 		return json({ message: 'Unauthorized' }, { status: 403 });

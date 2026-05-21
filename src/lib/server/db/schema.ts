@@ -2,6 +2,8 @@ import { sqliteTable, text, integer, primaryKey, index } from 'drizzle-orm/sqlit
 import { relations, sql } from 'drizzle-orm';
 import type { Genre } from '$lib/genres';
 
+// FIXME: user generated content tables from better auth tables
+
 export const article = sqliteTable('article', {
 	id: text('id').notNull().primaryKey(),
 	createdAt: integer('created_at', { mode: 'timestamp_ms' })
@@ -174,6 +176,8 @@ export const layoutSlot = sqliteTable(
 	},
 	(table) => [primaryKey({ columns: [table.page, table.slotType, table.position] })]
 );
+
+// FIXME: these scaffols should probably be in their respective files than here
 
 export type MainArticleScaffold = {
 	title: string;

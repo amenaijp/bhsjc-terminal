@@ -4,6 +4,8 @@
 	let { children, data } = $props();
 </script>
 
+<!-- repetitive -->
+
 <div class="flex flex-col">
 	<nav class="flex flex-row gap-6 p-4">
 		<h1 class="text-5xl">Terminal Editor</h1>

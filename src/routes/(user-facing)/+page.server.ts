@@ -8,6 +8,8 @@ import {
 } from '$lib/server/db/schema';
 import { and, desc, eq, inArray, notInArray } from 'drizzle-orm';
 
+// FIXME: again, there _has_ to be a better way to do this
+
 export async function load() {
 	const slots = await db.select().from(layoutSlot).where(eq(layoutSlot.page, 'front'));
 

@@ -40,6 +40,7 @@
 				{/if}
 			</p>
 		</div>
+	<!-- FIXME: one day make a page to see all articles from a specific author. -->
 		<p class="md:text-md mt-3 text-left text-sm wrap-anywhere">
 			by {#each data.authors as author, i}
 			<b class="text-md text-[#132d23] md:text-lg"

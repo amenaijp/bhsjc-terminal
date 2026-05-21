@@ -42,6 +42,7 @@ export const actions: Actions = {
 	},
 
 	delete: async ({ request, locals }) => {
+		// FIXME: copy some of this code over /editor/users so that admins can delete editors too
 		if (locals.user?.userType !== 'admin') return fail(403);
 
 		const form = await request.formData();

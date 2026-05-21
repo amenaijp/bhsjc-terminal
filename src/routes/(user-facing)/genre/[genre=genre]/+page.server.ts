@@ -9,6 +9,8 @@ import {
 import { and, desc, eq, inArray, notInArray } from 'drizzle-orm';
 import type { Genre } from '$lib/genres';
 
+// FIXME: this load function is really similar to the / route load function, can probably have a lot of code merged together
+
 export async function load({ params }) {
 	const genre = params.genre as Genre;
 

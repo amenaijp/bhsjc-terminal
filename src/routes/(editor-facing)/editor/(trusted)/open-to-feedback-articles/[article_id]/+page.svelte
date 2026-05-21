@@ -13,6 +13,8 @@
 
 <Link href={resolve('/editor/open-to-feedback-articles')}>go back to OTF articles</Link>
 
+<!-- this is copied pretty much verbatim from the /article/[article-id] route, move to a component -->
+
 <article class="mt-4 mb-4 flex max-w-275 flex-col self-center md:px-3">
 	<!-- Title, Date, Journalists -->
 	<header class="mb-4 flex flex-col self-center px-3 md:max-w-150 lg:max-w-200">

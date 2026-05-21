@@ -14,6 +14,7 @@ export const load: PageServerLoad = (event) => {
 
 export const actions: Actions = {
 	signUpEmail: async (event) => {
+		// FIXME: send that verification email using resend
 		const formData = await event.request.formData();
 		const email = formData.get('email')?.toString() ?? '';
 		const password = formData.get('password')?.toString() ?? '';

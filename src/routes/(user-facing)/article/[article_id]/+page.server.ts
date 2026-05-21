@@ -3,6 +3,8 @@ import { eq } from 'drizzle-orm';
 import { article, articleAuthor, articleGenre, user } from '$lib/server/db/schema';
 import { db } from '$lib/server/db';
 
+// this is _very_ similar to the loader for OTF article viewing, maybe move to a $lib thing?
+
 export async function load({ params, locals }) {
 	const { article_id } = params;
 

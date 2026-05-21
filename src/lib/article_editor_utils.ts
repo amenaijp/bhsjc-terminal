@@ -1,3 +1,4 @@
+// FIXME: this function is used _a lot_, move into it's own utils file
 export function debounce<T extends (...args: any[]) => unknown>(fn: T, delay: number): T {
 	let timer: ReturnType<typeof setTimeout>;
 	return ((...args) => {

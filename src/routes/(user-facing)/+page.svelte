@@ -12,6 +12,9 @@
 	<title>Terminal</title>
 </svelte:head>
 
+<!-- FIXME: proper svelte:head's across the codebase (especially in editor pages) -->
+<!-- FIXME: proper Terminal T favicon would go nicely -->
+
 <!-- genre selector -->
 <GenreOptionRow />
 

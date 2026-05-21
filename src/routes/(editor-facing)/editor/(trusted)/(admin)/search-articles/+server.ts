@@ -5,6 +5,9 @@ import { like, eq, inArray, and } from 'drizzle-orm';
 import { resolve } from '$app/paths';
 import type { Genre } from '$lib/genres';
 
+// FIXME: this api point, and honestly, all of the others, should be under a seperate editor/api and editor/api/admin route
+// FIXME: check the general queries and reason if they're the best way to go about the intended result
+
 export const GET = async ({ url, locals }) => {
 	if (!locals.user) return redirect(302, resolve('/editor/login'));
 	if (locals.user.userType != 'admin') return redirect(302, resolve('/editor/dashboard'));
