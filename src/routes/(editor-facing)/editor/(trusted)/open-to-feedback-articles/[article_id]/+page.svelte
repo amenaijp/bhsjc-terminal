@@ -23,8 +23,8 @@
 		</h2>
 		<div class="flex flex-row">
 			<p class="md:text-md mt-3 self-center text-left text-sm text-[#666666]">
-				{data.article.createdAt.toLocaleDateString('en-NZ')}, {formatDistanceToNow(
-					data.article.createdAt
+				last updated {data.article.updatedAt.toLocaleDateString('en-NZ')}, {formatDistanceToNow(
+					data.article.updatedAt
 				)} ago
 			</p>
 			<div class="flex flex-1"></div>
