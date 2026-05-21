@@ -1,67 +1,43 @@
 # bhsjc-terminal
 
-A news reader and editor written, written in svelte-kit. 
+A news reader and editor written, written in svelte-kit.
 
-[//]: # ()
-[//]: # (## Creating a project)
-
-[//]: # ()
-[//]: # (If you're seeing this, you've probably already done this step. Congrats!)
-
-[//]: # ()
-[//]: # (```sh)
-
-[//]: # (# create a new project)
-
-[//]: # (npx sv create my-app)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (To recreate this project with the same configuration:)
-
-[//]: # ()
-[//]: # (```sh)
-
-[//]: # (# recreate this project)
-
-[//]: # (bun x sv@0.15.2 create --template demo --types ts --add prettier eslint tailwindcss="plugins:typography,forms" sveltekit-adapter="adapter:node" drizzle="database:sqlite+sqlite:better-sqlite3" better-auth="demo:password" --install bun ./)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (## Developing)
-
-[//]: # ()
-[//]: # (Once you've created a project and installed dependencies with `npm install` &#40;or `pnpm install` or `yarn`&#41;, start a development server:)
-
-[//]: # ()
-[//]: # (```sh)
-
-[//]: # (npm run dev)
-
-[//]: # ()
-[//]: # (# or start the server and open the app in a new browser tab)
-
-[//]: # (npm run dev -- --open)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (## Building)
-
-[//]: # ()
-[//]: # (To create a production version of your app:)
-
-[//]: # ()
-[//]: # (```sh)
-
-[//]: # (npm run build)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (You can preview the production build with `npm run preview`.)
-
-[//]: # ()
-[//]: # (> To deploy your app, you may need to install an [adapter]&#40;https://svelte.dev/docs/kit/adapters&#41; for your target environment.)
+[//]: #
+[//]: # '## Creating a project'
+[//]: #
+[//]: # "If you're seeing this, you've probably already done this step. Congrats!"
+[//]: #
+[//]: # '```sh'
+[//]: # '# create a new project'
+[//]: # 'npx sv create my-app'
+[//]: # '```'
+[//]: #
+[//]: # 'To recreate this project with the same configuration:'
+[//]: #
+[//]: # '```sh'
+[//]: # '# recreate this project'
+[//]: # 'bun x sv@0.15.2 create --template demo --types ts --add prettier eslint tailwindcss="plugins:typography,forms" sveltekit-adapter="adapter:node" drizzle="database:sqlite+sqlite:better-sqlite3" better-auth="demo:password" --install bun ./'
+[//]: # '```'
+[//]: #
+[//]: # '## Developing'
+[//]: #
+[//]: # "Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:"
+[//]: #
+[//]: # '```sh'
+[//]: # 'npm run dev'
+[//]: #
+[//]: # '# or start the server and open the app in a new browser tab'
+[//]: # 'npm run dev -- --open'
+[//]: # '```'
+[//]: #
+[//]: # '## Building'
+[//]: #
+[//]: # 'To create a production version of your app:'
+[//]: #
+[//]: # '```sh'
+[//]: # 'npm run build'
+[//]: # '```'
+[//]: #
+[//]: # 'You can preview the production build with `npm run preview`.'
+[//]: #
+[//]: # '> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.'

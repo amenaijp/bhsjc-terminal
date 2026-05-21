@@ -26,5 +26,5 @@
 		</p>
 	</Article>
 {:else}
-	<div class="w-full h-full animate-pulse rounded-xs bg-gray-200 md:rounded-xs flex"></div>
+	<div class="flex h-full w-full animate-pulse rounded-xs bg-gray-200 md:rounded-xs"></div>
 {/if}

@@ -23,16 +23,18 @@
 		<div class="flex flex-row">
 			<p class="md:text-md mt-3 self-center text-left text-sm text-[#666666]">
 				last updated {data.article.updatedAt.toLocaleDateString('en-NZ')}, {formatDistanceToNow(
-				data.article.updatedAt
-			)} ago
+					data.article.updatedAt
+				)} ago
 			</p>
 			<div class="flex flex-1"></div>
 			<p class="md:text-md mt-3 self-center text-left text-sm text-[#666666]">
 				Genre{data.genres.length > 1 ? 's' : ''}:
 				{#if data.genres.length > 1}
 					{#each data.genres as genre, i}
-						<a class="text-black hover:cursor-pointer hover:underline" href={resolve(`/genre/${genre.genre}`)}
-						>{genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)}</a
+						<a
+							class="text-black hover:cursor-pointer hover:underline"
+							href={resolve(`/genre/${genre.genre}`)}
+							>{genre.genre.charAt(0).toUpperCase() + genre.genre.slice(1)}</a
 						>{#if i < data.genres.length - 1}{', '}{/if}
 					{/each}
 				{:else}
@@ -40,14 +42,13 @@
 				{/if}
 			</p>
 		</div>
-	<!-- FIXME: one day make a page to see all articles from a specific author. -->
+		<!-- FIXME: one day make a page to see all articles from a specific author. -->
 		<p class="md:text-md mt-3 text-left text-sm wrap-anywhere">
 			by {#each data.authors as author, i}
-			<b class="text-md text-[#132d23] md:text-lg"
-			>{author.name}</b
-			>{#if i < data.authors.length - 2},
-		{:else if i < data.authors.length - 1}{' and '}{/if}
-		{/each}
+				<b class="text-md text-[#132d23] md:text-lg">{author.name}</b
+				>{#if i < data.authors.length - 2},
+				{:else if i < data.authors.length - 1}{' and '}{/if}
+			{/each}
 		</p>
 	</header>
 	{#if data.article.frontImage}
