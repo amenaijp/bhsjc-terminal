@@ -94,7 +94,7 @@
 			type="submit"
 			class="mx-4 rounded-sm bg-red-600 px-2 py-1 text-white transition hover:bg-red-700"
 		>
-			delete article
+			delete article (irreversible!)
 		</button>
 	</form>
 	<div class="flex flex-col">
@@ -174,7 +174,7 @@
 	<!-- boolean edits (OTF, published) -->
 	<div class="flex flex-col">
 		<label class="flex w-fit flex-row items-center gap-2">
-			Article is OTF? (open for feedback, any editor can see the article)
+			Article is OTF? (Open To Feedback, any editor can see the article)
 			<input
 				checked={openToFeedback}
 				oninput={(e) => {
