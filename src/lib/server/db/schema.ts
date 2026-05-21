@@ -163,26 +163,17 @@ export const verification = sqliteTable(
 	(table) => [index('verification_identifier_idx').on(table.identifier)]
 );
 
-export const userRelations = relations(user, ({ many }) => ({
-	sessions: many(session),
-	accounts: many(account),
-	ownedArticles: many(article),
-	authoredArticles: many(articleAuthor)
-}));
-
-export const sessionRelations = relations(session, ({ one }) => ({
-	user: one(user, {
-		fields: [session.userId],
-		references: [user.id]
-	})
-}));
-
-export const accountRelations = relations(account, ({ one }) => ({
-	user: one(user, {
-		fields: [account.userId],
-		references: [user.id]
-	})
-}));
+export const layoutSlot = sqliteTable(
+	'layout_slot',
+	{
+		page: text('page').$type<'front' | Genre>().notNull(), // 'front' or a Genre value
+		slotType: text('slot_type').$type<'main' | 'side' | 'very_side'>().notNull(),
+		position: integer('position').notNull(), // for disambiguating multiple side slots
+		articleId: text('article_id').references(() => article.id)
+		// null = auto
+	},
+	(table) => [primaryKey({ columns: [table.page, table.slotType, table.position] })]
+);
 
 export type Article = typeof article.$inferSelect;
 export type User = typeof user.$inferSelect;
