@@ -140,6 +140,7 @@
 				onblur={() => setTimeout(() => (showSuggestions = false), 150)}
 			/>
 			{#if showSuggestions}
+				<!-- FIXME this suggestions thingy that's also used at article editor to add coauthors should really be it's own component -->
 				<ul class="absolute z-10 w-full rounded-xs border bg-white shadow-md">
 					{#each suggestions as suggestion}
 						<li>
