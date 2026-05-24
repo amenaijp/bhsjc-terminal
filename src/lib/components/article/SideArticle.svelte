@@ -9,7 +9,7 @@
 {#if article}
 	<Article link={resolve(`/article/${article.id}`)}>
 		<h3
-			class="self-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl text-center"
+			class="self-center text-center font-[Playfair] text-2xl wrap-anywhere text-[#37543a] group-hover:underline lg:text-3xl"
 		>
 			{article.title}
 		</h3>

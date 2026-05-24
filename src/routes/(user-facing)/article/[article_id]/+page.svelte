@@ -4,7 +4,7 @@
 	import { resolve } from '$app/paths';
 
 	let { data }: { data: PageData } = $props();
-	$inspect(data.genres)
+	$inspect(data.genres);
 </script>
 
 <svelte:head>
@@ -54,8 +54,10 @@
 	</header>
 	{#if data.article.frontImage}
 		<!-- TODO: one day we should start saving the alt info -->
-		<div class="mt-6 mb-4 aspect-video w-full self-center overflow-hidden md:rounded-xs md:px-5">
-			<img alt="" class="h-full w-full object-cover" src={data.article.frontImage} />
+		<div
+			class="mt-6 mb-4 flex aspect-video flex-col overflow-hidden transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
+		>
+			<img alt="Front page" class="flex grow self-center" src={data.article.frontImage} />
 		</div>
 	{/if}
 	<div class="flex flex-row self-center px-3 md:w-150 lg:w-200">

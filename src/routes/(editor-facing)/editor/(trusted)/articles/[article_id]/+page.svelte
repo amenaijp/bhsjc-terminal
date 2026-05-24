@@ -264,7 +264,7 @@
 	<!-- upload image/clear image/preview image -->
 	<div class="flex flex-col">
 		<label class="w-fit">
-			Cover image
+			Cover image (max 25MB)
 			<input
 				type="file"
 				accept="image/*"
@@ -333,13 +333,18 @@
 		{/if}
 
 		{#if frontImage}
+			<!--			<div-->
+			<!--				class="aspect-video transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs flex flex-col"-->
+			<!--			>-->
+			<!--				<img alt="Front page" class="flex self-center grow" src={article.frontImage} />-->
+			<!--			</div>-->
 			<div class="ml-2 flex flex-col">
 				<p>
 					Below the image as it would be shown on the front page on a large display is shown <br />
-					Note that images are cropped to a 16:9 aspect ratio
+					Note that images will be cropped to 16:9
 				</p>
-				<div class="aspect-video max-w-3xl overflow-hidden rounded-xs">
-					<img src={frontImage} alt="cover preview" class="h-full w-full object-cover" />
+				<div class="flex aspect-video max-w-3xl flex-col overflow-hidden rounded-xs">
+					<img src={frontImage} alt="cover preview" class="flex grow self-center" />
 				</div>
 			</div>
 		{/if}

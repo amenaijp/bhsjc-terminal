@@ -10,12 +10,12 @@
 	<Article link={resolve(`/article/${article.id}`)}>
 		<!-- FIXME: if we ever add a dark mode, the opacity trick won't work here-->
 		<div
-			class="aspect-video overflow-hidden transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
+			class="flex aspect-video flex-col overflow-hidden transition-opacity duration-200 group-hover:opacity-90 md:rounded-xs"
 		>
-			<img alt="Front page" class="h-full w-full object-cover" src={article.frontImage} />
+			<img alt="Front page" class="flex grow self-center" src={article.frontImage} />
 		</div>
 		<h2
-			class="mt-2 self-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl text-center"
+			class="mt-2 self-center text-center font-[Playfair] text-4xl wrap-anywhere group-hover:underline lg:text-5xl"
 		>
 			{article.title}
 		</h2>
