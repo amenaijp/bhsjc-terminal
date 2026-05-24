@@ -1,0 +1,56 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOST: "0.0.0.0"
+    volumes:
+      # SQLite database, WAL files
+      - db_data:/app/local.db
+      - db_shm:/app/local.db-shm
+      - db_wal:/app/local.db-wal
+      # User-uploaded files
+      - user_uploads:/app/static/user_uploads
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - internal
+    depends_on:
+      app:
+        condition: service_healthy
+
+volumes:
+  db_data:
+  db_shm:
+  db_wal:
+  user_uploads:
+  caddy_data:
+  caddy_config:
+
+networks:
+  internal:
+    driver: bridge
