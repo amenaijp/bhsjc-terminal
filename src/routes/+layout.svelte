@@ -6,7 +6,10 @@
 </script>
 
 <svelte:head>
-	<script defer src="/umami.js" data-website-id={env.PUBLIC_UMAMI_APP_ID}></script>
+	<!-- umami analytics -->
+	{#if env.PUBLIC_UMAMI_APP_ID}
+		<script defer src="/umami.js" data-website-id={env.PUBLIC_UMAMI_APP_ID}></script>
+	{/if}
 </svelte:head>
 
 {@render children()}

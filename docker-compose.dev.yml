@@ -50,7 +50,7 @@ services:
   umami:
     image: ghcr.io/umami-software/umami:latest
     ports:
-      - "3000:3000"
+      - '3000:3000'
     env_file:
       - .env
     environment:
@@ -63,7 +63,7 @@ services:
     init: true
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "curl http://localhost:3000/api/heartbeat" ]
+      test: ['CMD-SHELL', 'curl http://localhost:3000/api/heartbeat']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -82,7 +82,7 @@ services:
       - umami-db-data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
       interval: 5s
       timeout: 5s
       retries: 5
