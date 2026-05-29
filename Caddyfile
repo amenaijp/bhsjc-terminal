@@ -9,6 +9,16 @@
 {$ORIGIN} {
     encode zstd gzip
 
+    # proxy analytics script
+    handle /umami.js {
+        rewrite * /script.js
+        reverse_proxy umami:3000
+    }
+
+    handle /api/umamiSend { # changed from default to this with COLLECT_API_ENDPOINT
+        reverse_proxy umami:3000
+    }
+
     handle /user_uploads/* {
         root * /data/user_uploads
         uri strip_prefix /user_uploads
