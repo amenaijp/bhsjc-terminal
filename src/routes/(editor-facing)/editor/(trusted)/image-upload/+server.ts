@@ -1,9 +1,14 @@
 import { json } from '@sveltejs/kit';
 import { createHash } from 'crypto';
-import { writeFile, access } from 'fs/promises';
+import { writeFile, access, mkdir } from 'fs/promises';
 import { join } from 'path';
+import { env } from '$env/dynamic/private';
 
 export const POST = async ({ request }) => {
+	if (!env.USER_IMAGES_PATH) {
+		return json({ message: 'Image storage is not configured' }, { status: 500 });
+	}
+
 	const formData = await request.formData();
 	const file = formData.get('image');
 
@@ -25,7 +30,7 @@ export const POST = async ({ request }) => {
 	const hash = createHash('md5').update(buffer).digest('hex');
 	const ext = file.name.split('.').at(-1);
 	const filename = `${hash}.${ext}`;
-	const filepath = join('static', 'user_uploads', filename);
+	const filepath = join(env.USER_IMAGES_PATH, filename);
 	const url = `/user_uploads/${filename}`;
 
 	try {
@@ -36,6 +41,7 @@ export const POST = async ({ request }) => {
 	}
 
 	try {
+		await mkdir(env.USER_IMAGES_PATH, { recursive: true });
 		await writeFile(filepath, buffer);
 	} catch (e) {
 		console.error(e);
