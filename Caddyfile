@@ -1,30 +1,45 @@
-{$DOMAIN:localhost} {
+# This file is driven by two env vars:
+# ORIGIN - browser url. caddy looks at this to determine which port to bind to and whether to provision a tls cert
+#  dev: ORIGIN=http://localhost:5173 ( http only )
+#  prod: ORIGIN=https://example.com ( https )
+# UPSTREAM - the address in the Dockerfile that caddy reverse proxies to
+#  dev: UPSTREAM=app:5173 ( vite dev server )
+#  prod: UPSTREAM=app:3000  ( node production server )
 
+{$ORIGIN} {
     encode zstd gzip
 
-    reverse_proxy app:3000 {
-        lb_try_duration 15s
-        lb_try_interval 250ms
+    handle /user_uploads/* {
+        root * /data/user_uploads
+        uri strip_prefix /user_uploads
+        file_server
+    }
 
-        health_uri      /health
-        health_interval 10s
-        health_timeout  5s
+    handle {
+        reverse_proxy {$UPSTREAM} {
+            header_up Host {http.request.hostport}
 
-        header_up X-Real-IP        {remote_host}
-        header_up X-Forwarded-For  {remote_host}
-        header_up X-Forwarded-Proto {scheme}
+            lb_try_duration 15s
+            lb_try_interval 250ms
+
+            fail_duration 10s
+            max_fails     3
+        }
     }
 
     header {
-        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        @is_https vars {scheme} https
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" defer
+
         X-Content-Type-Options    "nosniff"
         X-Frame-Options           "SAMEORIGIN"
         Referrer-Policy           "strict-origin-when-cross-origin"
+
         -Server
     }
 
     log {
-        output stdout
+        output {$LOG_SETTING:discard}
         format console
     }
 }

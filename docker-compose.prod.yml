@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: runner
     restart: unless-stopped
     expose:
       - '3000'
@@ -10,17 +11,15 @@ services:
       NODE_ENV: production
       PORT: '3000'
       HOST: '0.0.0.0'
+      SQLITE_DATABASE_PATH: /data/sqlite_db/data.db
+      USER_IMAGES_PATH: /data/user_uploads/
     volumes:
-      # SQLite database, WAL files
-      - db_data:/app/local.db
-      - db_shm:/app/local.db-shm
-      - db_wal:/app/local.db-wal
-      # User-uploaded files
-      - user_uploads:/app/static/user_uploads
+      - db_data:/data/sqlite_db
+      - user_uploads:/data/user_uploads
     networks:
       - internal
     healthcheck:
-      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/health']
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/api/health']
       interval: 10s
       timeout: 5s
       retries: 3
@@ -33,8 +32,12 @@ services:
       - '80:80'
       - '443:443'
       - '443:443/udp'
+    environment:
+      ORIGIN: '${ORIGIN}'
+      UPSTREAM: 'app:3000'
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - user_uploads:/data/user_uploads:ro
       - caddy_data:/data
       - caddy_config:/config
     networks:
@@ -45,8 +48,6 @@ services:
 
 volumes:
   db_data:
-  db_shm:
-  db_wal:
   user_uploads:
   caddy_data:
   caddy_config:

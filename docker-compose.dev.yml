@@ -1,0 +1,51 @@
+# Development compose file. hot-reload, Caddy on localhost:5173, no TLS.
+#
+# Usage:
+#   cp .env.example.dev .env
+#   mkdir -p data/sqlite_db data/user_uploads
+#   docker compose -f docker-compose.dev.yml up
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    pull_policy: build # equivalent of running --build on every compose command
+    command: bun run dev --host
+    restart: unless-stopped
+    expose:
+      - '5173' # Vite dev server
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      SQLITE_DATABASE_PATH: /data/sqlite_db/data.db
+      USER_IMAGES_PATH: /data/user_uploads/
+    volumes:
+      - .:/app # hot reload appdata
+      - /app/node_modules # persist node_modules
+      - ./data/sqlite_db:/data/sqlite_db
+      - ./data/user_uploads:/data/user_uploads
+    networks:
+      - internal
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - '5173:5173'
+    environment:
+      ORIGIN: '${ORIGIN}' # host on the same url as in the .env
+      UPSTREAM: 'app:5173' # no need to be modifiable
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data/user_uploads:/data/user_uploads:ro
+    networks:
+      - internal
+    depends_on:
+      - app
+
+networks:
+  internal:
+    driver: bridge

@@ -1,50 +1,50 @@
-FROM oven/bun:1 AS builder
+# syntax=docker/dockerfile:1
+
+FROM oven/bun:alpine AS base
 
 WORKDIR /app
+ENV HOST=0.0.0.0
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-      python3 \
-      make \
-      g++ \
-    && rm -rf /var/lib/apt/lists/*
+FROM base AS builder
 
-COPY package.json bun.lock* ./
-RUN bun install --frozen-lockfile
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --ignore-scripts
 
 COPY . .
 RUN bun run build
 
-RUN bun install --frozen-lockfile --production
+FROM base AS development
+ENV NODE_ENV=development
+ENV PORT=5173
 
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --ignore-scripts && bun svelte-kit sync
 
-FROM node:22-alpine AS runner
+RUN mkdir -p /data/sqlite_db /data/user_uploads
 
-WORKDIR /app
+# actual source code gets put in here by the compose file
 
+EXPOSE 5173
+CMD ["bun", "--bun", "run", "dev"]
+
+FROM base AS runner
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV HOST=0.0.0.0
 
-RUN addgroup --system --gid 1001 nodejs \
- && adduser  --system --uid 1001 sveltekit
+RUN addgroup --system --gid 1001 sveltekit \
+ && adduser  --system --uid 1001 --ingroup sveltekit sveltekit
 
-RUN apk add --no-cache --virtual .build-deps python3 make g++
+COPY --from=builder --chown=sveltekit:sveltekit /app/build ./build
 
-COPY --from=builder --chown=sveltekit:nodejs /app/build        ./build
-COPY --from=builder --chown=sveltekit:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=sveltekit:nodejs /app/package.json ./package.json
+RUN mkdir -p /data/sqlite_db /data/user_uploads \
+ && chown -R sveltekit:sveltekit /data
 
-RUN npm rebuild better-sqlite3 \
- && apk del .build-deps
-
-RUN mkdir -p ./static/user_uploads \
- && chown -R sveltekit:nodejs ./static
+VOLUME ["/data/sqlite_db", "/data/user_uploads"]
 
 USER sveltekit
-
 EXPOSE 3000
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:3000/health || exit 1
+  CMD wget -qO- http://localhost:3000/api/health || exit 1
 
-CMD ["node", "build/index.js"]
+CMD ["bun", "build/index.js"]
