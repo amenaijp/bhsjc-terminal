@@ -5,11 +5,11 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     expose:
-      - "3000"
+      - '3000'
     environment:
       NODE_ENV: production
-      PORT: "3000"
-      HOST: "0.0.0.0"
+      PORT: '3000'
+      HOST: '0.0.0.0'
     volumes:
       # SQLite database, WAL files
       - db_data:/app/local.db
@@ -20,7 +20,7 @@ services:
     networks:
       - internal
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/health']
       interval: 10s
       timeout: 5s
       retries: 3
@@ -30,9 +30,9 @@ services:
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

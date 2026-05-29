@@ -4,7 +4,9 @@
 	import { resolve } from '$app/paths';
 
 	let { data }: { data: PageData } = $props();
-	$inspect(data.genres);
+
+	const paragraphs = data.article.fullText.split('\n\n');
+	const showAd = paragraphs.length > 5;
 </script>
 
 <svelte:head>
@@ -62,8 +64,20 @@
 	{/if}
 	<div class="flex flex-row self-center px-3 md:w-150 lg:w-200">
 		<!-- whitespace-pre-wrap is just to get \n\n to render while using lorem ipsum, remove when using markdown-->
-		<p class="text-left font-[Playfair] text-lg wrap-anywhere whitespace-pre-line md:text-xl">
-			{data.article.fullText}
-		</p>
+		<div class="flex flex-col gap-4 self-center px-3 md:w-150 lg:w-200">
+			{#each paragraphs as paragraph, i}
+				{#if showAd && i === 3}
+					<div class="flex flex-col">
+						<p class="text-gray-400 flex flex-row self-center italic">sponsored</p>
+						<div
+							class="flex flex-col self-center sm:w-60 md:w-80 lg:w-100 aspect-video items-center justify-center rounded-md bg-red-600 md:flex-1 lg:flex-0"
+						>
+							<p class="text-xl text-white">Your ad could go here!</p>
+						</div>
+					</div>
+				{/if}
+				<p class="text-left font-[Playfair] text-lg wrap-anywhere md:text-xl">{paragraph}</p>
+			{/each}
+		</div>
 	</div>
 </article>
