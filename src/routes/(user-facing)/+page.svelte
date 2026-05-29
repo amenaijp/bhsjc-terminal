@@ -71,25 +71,25 @@
 			</p>
 		</div>
 		<!-- Vertical/Horizontal Divider -->
-<!--		<div-->
-<!--			class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"-->
-<!--		></div>-->
-<!--		&lt;!&ndash; Notices &ndash;&gt;-->
-<!--		<div class="flex flex-col md:flex-1 lg:flex-0">-->
-<!--			<h3 class="self-center font-[Playfair] text-3xl wrap-anywhere text-[#37543a] lg:text-4xl">-->
-<!--				Notices-->
-<!--			</h3>-->
-<!--			<div class="flex flex-row">-->
-<!--				<div class="flex flex-1 flex-col">-->
-<!--					<h4 class="self-center font-[Playfair] text-xl text-[#132d23] lg:text-2xl">JUNIORS</h4>-->
-<!--				</div>-->
-<!--				&lt;!&ndash; Vertical Divider &ndash;&gt;-->
-<!--				<div class="mx-4 my-8 flex min-h-8 w-0.5 rounded-xs bg-[#E0E0E0]"></div>-->
-<!--				<div class="flex flex-1 flex-col">-->
-<!--					<h4 class="self-center font-[Playfair] text-xl text-[#132d23] lg:text-2xl">SENIORS</h4>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
+		<!--		<div-->
+		<!--			class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"-->
+		<!--		></div>-->
+		<!--		&lt;!&ndash; Notices &ndash;&gt;-->
+		<!--		<div class="flex flex-col md:flex-1 lg:flex-0">-->
+		<!--			<h3 class="self-center font-[Playfair] text-3xl wrap-anywhere text-[#37543a] lg:text-4xl">-->
+		<!--				Notices-->
+		<!--			</h3>-->
+		<!--			<div class="flex flex-row">-->
+		<!--				<div class="flex flex-1 flex-col">-->
+		<!--					<h4 class="self-center font-[Playfair] text-xl text-[#132d23] lg:text-2xl">JUNIORS</h4>-->
+		<!--				</div>-->
+		<!--				&lt;!&ndash; Vertical Divider &ndash;&gt;-->
+		<!--				<div class="mx-4 my-8 flex min-h-8 w-0.5 rounded-xs bg-[#E0E0E0]"></div>-->
+		<!--				<div class="flex flex-1 flex-col">-->
+		<!--					<h4 class="self-center font-[Playfair] text-xl text-[#132d23] lg:text-2xl">SENIORS</h4>-->
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--		</div>-->
 		<!-- advertising space -->
 		<!-- divider -->
 		<div
