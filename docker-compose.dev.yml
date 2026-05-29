@@ -24,7 +24,6 @@ services:
       USER_IMAGES_PATH: /data/user_uploads/
     volumes:
       - .:/app # hot reload appdata
-      - /app/node_modules # persist node_modules
       - ./data/sqlite_db:/data/sqlite_db
       - ./data/user_uploads:/data/user_uploads
     networks:
