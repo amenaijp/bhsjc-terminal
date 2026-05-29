@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import Link from '$lib/components/editors/link.svelte';
+	import Link from '$lib/components/common/Link.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();

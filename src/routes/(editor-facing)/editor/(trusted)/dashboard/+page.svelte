@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Link from '$lib/components/editors/link.svelte';
+	import Link from '$lib/components/common/Link.svelte';
 
 	let { data }: { data: PageData } = $props();
 	// FIXME: would be nice if this showed you how many published and unpublished articles you owned

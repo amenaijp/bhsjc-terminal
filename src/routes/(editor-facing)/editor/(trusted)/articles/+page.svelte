@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import Link from '$lib/components/editors/link.svelte';
+	import Link from '$lib/components/common/Link.svelte';
 
 	let { data }: { data: PageData } = $props();
 </script>
