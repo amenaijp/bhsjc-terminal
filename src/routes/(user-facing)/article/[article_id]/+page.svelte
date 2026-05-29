@@ -68,9 +68,9 @@
 			{#each paragraphs as paragraph, i}
 				{#if showAd && i === 3}
 					<div class="flex flex-col">
-						<p class="text-gray-400 flex flex-row self-center italic">sponsored</p>
+						<p class="flex flex-row self-center text-gray-400 italic">sponsored</p>
 						<div
-							class="flex flex-col self-center sm:w-60 md:w-80 lg:w-100 aspect-video items-center justify-center rounded-md bg-red-600 md:flex-1 lg:flex-0"
+							class="flex aspect-video flex-col items-center justify-center self-center rounded-md bg-red-600 sm:w-60 md:w-80 md:flex-1 lg:w-100 lg:flex-0"
 						>
 							<p class="text-xl text-white">Your ad could go here!</p>
 						</div>

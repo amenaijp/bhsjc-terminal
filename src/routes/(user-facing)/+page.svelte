@@ -96,7 +96,7 @@
 			class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
 		></div>
 		<div class="flex flex-col md:flex-1 lg:flex-0">
-			<p class="text-gray-400 flex flex-row self-center italic">sponsored</p>
+			<p class="flex flex-row self-center text-gray-400 italic">sponsored</p>
 			<div
 				class="flex aspect-video max-h-60 items-center justify-center rounded-md bg-red-600 md:flex-1 lg:flex-0"
 			>
