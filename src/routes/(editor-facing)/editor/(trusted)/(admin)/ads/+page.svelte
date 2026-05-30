@@ -112,8 +112,9 @@
 </form>
 <p class="my-6">
 	displaying {data.ads.length} ad(s) <br />
-	*Not actually representative of how many views this ad has gotten. Check the analytics page if you really
-	want to know!
+	*Not actually representative of how many views this ad has gotten. <br />
+	If you really want to know, go to the <code>umami</code> analytics page, from the left sidebar go to
+	events, and then search for ad-view events.
 </p>
 <form method="GET">
 	<label>
