@@ -1,16 +1,18 @@
 import { db } from '$lib/server/db';
 import {
+	adCampaign,
 	article,
 	layoutSlot,
 	type MainArticleScaffold,
 	type SideArticleScaffold,
 	type VerySideArticleScaffold
 } from '$lib/server/db/schema';
-import { and, desc, eq, inArray, notInArray } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray, notInArray } from 'drizzle-orm';
 
 // FIXME: again, there _has_ to be a better way to do this
 
 export async function load() {
+	// code to fill the slots
 	const slots = await db.select().from(layoutSlot).where(eq(layoutSlot.page, 'front'));
 
 	const pinnedIds = slots.map((s) => s.articleId).filter(Boolean) as string[];
@@ -71,6 +73,21 @@ export async function load() {
 		.map(resolve);
 	const verySide = resolve(slots.find((s) => s.slotType === 'very_side')!);
 
+	// code to find which ad to serve, if any
+	const ad = db
+		.select()
+		.from(adCampaign)
+		.where(eq(adCampaign.active, true))
+		.orderBy(asc(adCampaign.views))
+		.get();
+
+	if (ad) {
+		await db
+			.update(adCampaign)
+			.set({ views: ad.views + 1 })
+			.where(eq(adCampaign.id, ad.id));
+	}
+
 	return {
 		main:
 			main &&
@@ -85,6 +102,7 @@ export async function load() {
 		) as SideArticleScaffold[],
 		verySide:
 			verySide &&
-			({ id: verySide.id, title: verySide.title, hook: verySide.hook } as VerySideArticleScaffold)
+			({ id: verySide.id, title: verySide.title, hook: verySide.hook } as VerySideArticleScaffold),
+		ad
 	};
 }

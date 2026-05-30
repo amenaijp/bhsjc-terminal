@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { formatDistanceToNow } from 'date-fns';
 	import { resolve } from '$app/paths';
+	import { onVisible } from '$lib/actions/onVisible';
 
 	let { data }: { data: PageData } = $props();
 
@@ -33,7 +34,7 @@
 			<p class="md:text-md mt-3 self-center text-left text-sm text-[#666666]">
 				Genre{data.genres.length > 1 ? 's' : ''}:
 				{#if data.genres.length > 0}
-					{#each data.genres as genre, i}
+					{#each data.genres as genre, i (i)}
 						<a
 							class="text-black hover:cursor-pointer hover:underline"
 							href={resolve(`/genre/${genre.genre}`)}
@@ -47,7 +48,7 @@
 		</div>
 		<!-- FIXME: one day make a page to see all articles from a specific author. -->
 		<p class="md:text-md mt-3 text-left text-sm wrap-anywhere">
-			by {#each data.authors as author, i}
+			by {#each data.authors as author, i (i)}
 				<b class="text-md text-[#132d23] md:text-lg">{author.name}</b
 				>{#if i < data.authors.length - 2},
 				{:else if i < data.authors.length - 1}{' and '}{/if}
@@ -65,15 +66,21 @@
 	<div class="flex flex-row self-center px-3 md:w-150 lg:w-200">
 		<!-- whitespace-pre-wrap is just to get \n\n to render while using lorem ipsum, remove when using markdown-->
 		<div class="flex flex-col gap-4 self-center px-3 md:w-150 lg:w-200">
-			{#each paragraphs as paragraph, i}
-				{#if showAd && i === 3}
-					<div class="flex flex-col">
-						<p class="flex flex-row self-center text-gray-400 italic">sponsored</p>
-						<div
-							class="flex aspect-video flex-col items-center justify-center self-center rounded-md bg-red-600 sm:w-60 md:w-80 md:flex-1 lg:w-100 lg:flex-0"
-						>
-							<p class="text-xl text-white">Your ad could go here!</p>
-						</div>
+			{#each paragraphs as paragraph, i (i)}
+				{#if showAd && i === 3 && data.ad}
+					<div class="flex flex-col items-center my-4">
+						<p class="flex text-gray-400 italic">sponsored</p>
+						<a href={data.ad.link} class="transition-opacity duration-200 hover:opacity-90 mx-2">
+							<img
+								src={data.ad.image}
+								alt=""
+								aria-hidden="true"
+								class="grow flex rounded-xs max-w-2xs"
+								use:onVisible={() => {
+									window.umami.track('ad-view', { name: data.ad.name });
+								}}
+							/>
+						</a>
 					</div>
 				{/if}
 				<p class="text-left font-[Playfair] text-lg wrap-anywhere md:text-xl">{paragraph}</p>

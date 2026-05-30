@@ -3,6 +3,7 @@
 	import MainArticle from '$lib/components/article/MainArticle.svelte';
 	import SideArticle from '$lib/components/article/SideArticle.svelte';
 	import VerySideArticle from '$lib/components/article/VerySideArticle.svelte';
+	import { onVisible } from '$lib/actions/onVisible';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -92,16 +93,24 @@
 		<!--		</div>-->
 		<!-- advertising space -->
 		<!-- divider -->
-		<div
-			class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
-		></div>
-		<div class="flex flex-col md:flex-1 lg:flex-0">
-			<p class="flex flex-row self-center text-gray-400 italic">sponsored</p>
+		{#if data.ad}
 			<div
-				class="flex aspect-video max-h-60 items-center justify-center rounded-md bg-red-600 md:flex-1 lg:flex-0"
-			>
-				<p class="text-xl text-white">Your ad could go here!</p>
+				class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
+			></div>
+			<div class="flex flex-col md:flex-1 lg:flex-0">
+				<p class="flex self-center text-gray-400 italic">sponsored</p>
+				<a href={data.ad.link} class="transition-opacity duration-200 hover:opacity-90 mx-2">
+					<img
+						src={data.ad.image}
+						alt=""
+						aria-hidden="true"
+						class="grow flex rounded-xs"
+						use:onVisible={() => {
+							window.umami.track('ad-view', { name: data.ad.name });
+						}}
+					/>
+				</a>
 			</div>
-		</div>
+		{/if}
 	</div>
 </div>
