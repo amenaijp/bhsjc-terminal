@@ -70,12 +70,15 @@
 				{#if showAd && i === 3 && data.ad}
 					<div class="flex flex-col items-center my-4">
 						<p class="flex text-gray-400 italic">sponsored</p>
-						<a href={data.ad.link} class="transition-opacity duration-200 hover:opacity-90 mx-2">
+						<a
+							href={data.ad.link}
+							class="transition-opacity duration-200 hover:opacity-90 mx-2 w-full max-w-2xs"
+						>
 							<img
 								src={data.ad.image}
 								alt=""
 								aria-hidden="true"
-								class="grow flex rounded-xs max-w-2xs"
+								class="rounded-xs max-w-full w-full"
 								use:onVisible={() => {
 									window.umami.track('ad-view', { name: data.ad.name });
 								}}

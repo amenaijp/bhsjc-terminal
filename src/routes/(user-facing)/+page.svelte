@@ -97,14 +97,17 @@
 			<div
 				class="mx-8 my-4 flex h-0.5 rounded-xs bg-[#E0E0E0] md:mx-4 md:my-8 md:h-auto md:w-0.5 lg:mx-8 lg:my-4 lg:h-0.5 lg:w-auto"
 			></div>
-			<div class="flex flex-col md:flex-1 lg:flex-0">
-				<p class="flex self-center text-gray-400 italic">sponsored</p>
-				<a href={data.ad.link} class="transition-opacity duration-200 hover:opacity-90 mx-2">
+			<div class="flex flex-col md:flex-1 lg:flex-0 items-center">
+				<p class="flex text-gray-400 italic">sponsored</p>
+				<a
+					href={data.ad.link}
+					class="transition-opacity duration-200 hover:opacity-90 mx-2 w-full max-w-xs"
+				>
 					<img
 						src={data.ad.image}
 						alt=""
 						aria-hidden="true"
-						class="grow flex rounded-xs"
+						class="rounded-xs max-w-full w-full"
 						use:onVisible={() => {
 							window.umami.track('ad-view', { name: data.ad.name });
 						}}
