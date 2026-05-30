@@ -177,6 +177,15 @@ export const layoutSlot = sqliteTable(
 	(table) => [primaryKey({ columns: [table.page, table.slotType, table.position] })]
 );
 
+export const adCampaign = sqliteTable('ad_campaign', {
+	id: text('id').notNull().unique().primaryKey(),
+	name: text('name').notNull(),
+	image: text('image').notNull(),
+	link: text('link').notNull(),
+	active: integer('active', { mode: 'boolean' }).notNull(),
+	views: integer('views').notNull().default(0)
+});
+
 // FIXME: these scaffols should probably be in their respective files than here
 
 export type MainArticleScaffold = {

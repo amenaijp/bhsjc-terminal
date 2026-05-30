@@ -21,6 +21,9 @@
 			<a class="group self-center" href={resolve('/editor/nominations')}>
 				<h2 class="text-xl group-hover:underline">Nominations</h2>
 			</a>
+			<a class="group self-center" href={resolve('/editor/ads')}>
+				<h2 class="text-xl group-hover:underline">Ads</h2>
+			</a>
 		{/if}
 		<a class="group self-center" href={resolve('/editor/articles')}>
 			<h2 class="text-xl group-hover:underline">My Articles</h2>

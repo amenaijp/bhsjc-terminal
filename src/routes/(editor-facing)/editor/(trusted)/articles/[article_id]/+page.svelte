@@ -19,6 +19,7 @@
 	// there _should_ be a better way to do this but for now this works
 	// FIXME: find the better way
 	// FIXME: one day have the whole codebase be svelte-check compliant
+	// FIXME: ads page also uses the image uploader component, it should be moved to it's own component
 	// fields from schema `article`
 	let title = $state($state.snapshot(data.article_data.title));
 	let fullText = $state($state.snapshot(data.article_data.fullText));
