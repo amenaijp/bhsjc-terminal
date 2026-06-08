@@ -1,29 +1,82 @@
+# Production compose file. Caddy handles TLS via ACME (Let's Encrypt).
+#
+# Usage:
+#   cp .env.example .env   # set all required vars, especially ORIGIN
+#   mkdir -p data/sqlite_db data/user_uploads
+#   docker compose -f docker-compose.prod.yml up -d
+
 services:
+  umami-db:
+    image: postgres:15-alpine
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${UMAMI_DB_NAME:-umami}
+      POSTGRES_USER: ${UMAMI_DB_USER:-umami}
+      POSTGRES_PASSWORD: ${UMAMI_DB_PASSWORD:-umami}  # default password is okay? since internal network
+    volumes:
+      - umami-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - internal
+    security_opt:
+      - no-new-privileges:true
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${UMAMI_DB_USER:-umami}:${UMAMI_DB_PASSWORD:-umami}@umami-db:5432/${UMAMI_DB_NAME:-umami}
+      COLLECT_API_ENDPOINT: /api/umamiSend
+    depends_on:
+      umami-db:
+        condition: service_healthy
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -f http://localhost:3000/api/heartbeat']
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    networks:
+      - internal
+    security_opt:
+      - no-new-privileges:true
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
-      target: runner
+      target: production
+    pull_policy: build
     restart: unless-stopped
     expose:
-      - '3000'
+      - '5173'
+    env_file:
+      - .env
     environment:
       NODE_ENV: production
-      PORT: '3000'
-      HOST: '0.0.0.0'
       SQLITE_DATABASE_PATH: /data/sqlite_db/data.db
       USER_IMAGES_PATH: /data/user_uploads/
+    depends_on:
+      umami:
+        condition: service_healthy
     volumes:
-      - db_data:/data/sqlite_db
-      - user_uploads:/data/user_uploads
+      - ./data/sqlite_db:/data/sqlite_db
+      - ./data/user_uploads:/data/user_uploads
     networks:
       - internal
-    healthcheck:
-      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/api/health']
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 15s
+    security_opt:
+      - no-new-privileges:true
 
   caddy:
     image: caddy:2-alpine
@@ -31,26 +84,26 @@ services:
     ports:
       - '80:80'
       - '443:443'
-      - '443:443/udp'
+      - '443:443/udp' # HTTP/3
     environment:
-      ORIGIN: '${ORIGIN}'
-      UPSTREAM: 'app:3000'
+      ORIGIN: '${ORIGIN:?ORIGIN must be set}'
+      UPSTREAM: 'app:5173'
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - user_uploads:/data/user_uploads:ro
-      - caddy_data:/data
-      - caddy_config:/config
+      - ./data/user_uploads:/data/user_uploads:ro
+      - caddy-data:/data         # persists TLS certs across restarts
+      - caddy-config:/config
     networks:
       - internal
     depends_on:
-      app:
-        condition: service_healthy
+      - app
+    security_opt:
+      - no-new-privileges:true
 
 volumes:
-  db_data:
-  user_uploads:
-  caddy_data:
-  caddy_config:
+  umami-db-data:
+  caddy-data:
+  caddy-config:
 
 networks:
   internal:

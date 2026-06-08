@@ -28,7 +28,7 @@ services:
       - internal
 
   umami:
-    image: ghcr.io/umami-software/umami:latest
+    image: ghcr.io/umami-software/umami:postgresql-latest
     ports:
       - '3000:3000'
     env_file:

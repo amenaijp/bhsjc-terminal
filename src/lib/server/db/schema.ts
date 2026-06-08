@@ -1,5 +1,5 @@
 import { sqliteTable, text, integer, primaryKey, index } from 'drizzle-orm/sqlite-core';
-import { relations, sql } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import type { Genre } from '$lib/genres';
 
 // FIXME: user generated content tables from better auth tables
@@ -47,34 +47,6 @@ export const articleAuthor = sqliteTable(
 	},
 	(table) => [primaryKey({ columns: [table.articleId, table.editorId] })]
 );
-
-export const articleRelations = relations(article, ({ one, many }) => ({
-	owner: one(user, {
-		fields: [article.ownerId],
-		references: [user.id]
-	}),
-	genres: many(articleGenre),
-	authors: many(articleAuthor)
-}));
-
-export const articleGenreRelations = relations(articleGenre, ({ one }) => ({
-	article: one(article, {
-		fields: [articleGenre.articleId],
-		references: [article.id]
-	})
-}));
-
-export const articleAuthorRelations = relations(articleAuthor, ({ one }) => ({
-	article: one(article, {
-		fields: [articleAuthor.articleId],
-		references: [article.id]
-	}),
-	editor: one(user, {
-		fields: [articleAuthor.editorId],
-		references: [user.id]
-	})
-}));
-
 // betterAuth schemas
 
 // MODIFY IN ../auth.ts IF MODIFYING THIS SCHEMA
