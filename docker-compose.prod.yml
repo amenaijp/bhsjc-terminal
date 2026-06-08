@@ -56,7 +56,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: production
+      target: runner
     pull_policy: build
     restart: unless-stopped
     expose:
