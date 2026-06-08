@@ -9,6 +9,8 @@ import type { User as DrizzleUser } from '$lib/server/db/schema';
 let _auth: ReturnType<typeof betterAuth> | null = null;
 
 // FIXME: play around with the auth and resend https://resend.com/onboarding for email verification
+// https://better-auth.com/docs/concepts/email
+// https://resend.com/emails
 
 function getAuth() {
 	if (_auth) return _auth;
