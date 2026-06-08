@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData, ActionData } from './$types';
 	import { enhance } from '$app/forms';
 
-	let { data }: { data: PageData } = $props();
+	let { data, form }: { data: PageData, form: ActionData } = $props();
 </script>
 
 <p>
@@ -28,6 +28,23 @@
 	<button class="w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
 		>submit</button
 	>
+</form>
+<form method="POST" use:enhance action="?/changePassword" class="flex flex-row items-center gap-2 my-4">
+	<p>Change your password</p>
+	<input
+		name="currentPassword"
+		type="password"
+		placeholder="your current password"
+	/>
+	<input
+		name="newPassword"
+		type="password"
+		placeholder="your new password"
+	/>
+	<button class="w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
+	>submit</button
+	>
+	<p class="my-1 text-red-500">{form?.message ?? ''}</p>
 </form>
 <form method="POST" use:enhance action="?/signOut">
 	<button class="w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700"
