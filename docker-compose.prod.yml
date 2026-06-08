@@ -27,6 +27,17 @@ services:
     security_opt:
       - no-new-privileges:true
 
+  geoipupdate:
+    image: maxmindinc/geoipupdate
+    env_file:
+      - .env
+    environment:
+      GEOIPUPDATE_EDITION_IDS: "GeoLite2-City"
+      GEOIPUPDATE_FREQUENCY: "72"    # re-download every 72 hours
+      GEOIPUPDATE_DB_DIR: /geoip
+    volumes:
+      - geoip_data:/geoip
+
   umami:
     image: ghcr.io/umami-software/umami:postgresql-latest
     ports:
@@ -36,9 +47,14 @@ services:
     environment:
       DATABASE_URL: postgresql://${UMAMI_DB_USER:-umami}:${UMAMI_DB_PASSWORD:-umami}@umami-db:5432/${UMAMI_DB_NAME:-umami}
       COLLECT_API_ENDPOINT: /api/umamiSend
+      GEOLITE2_CITY_PATH: /geoip/GeoLite2-City.mmdb
+    volumes:
+      - geoip_data:/geoip
     depends_on:
       umami-db:
         condition: service_healthy
+      geoipupdate:
+        condition: service_completed_successfully
     init: true
     restart: unless-stopped
     healthcheck:
@@ -104,6 +120,7 @@ volumes:
   umami-db-data:
   caddy-data:
   caddy-config:
+  geoip_data:
 
 networks:
   internal:

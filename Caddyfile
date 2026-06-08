@@ -15,8 +15,11 @@
         reverse_proxy umami:3000
     }
 
-    handle /api/umamiSend { # changed from default to this with COLLECT_API_ENDPOINT
-        reverse_proxy umami:3000
+    handle /api/umamiSend {
+        reverse_proxy umami:3000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+        }
     }
 
     handle /user_uploads/* {
