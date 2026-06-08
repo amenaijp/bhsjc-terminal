@@ -44,4 +44,20 @@ export const actions: Actions = {
 			return fail(500, { message: 'Unexpected error' });
 		}
 	}
+	// resendVerification: async ({ request, locals }) => {
+	// 	if (!locals.user) return fail(403);
+	// 	if (locals.user.emailVerified) return fail(400, { message: 'Email is already verified' });
+	//
+	// 	try {
+	// 		await auth.api.sendVerificationEmail({
+	// 			body: { email: locals.user.email },
+	// 			headers: request.headers
+	// 		});
+	// 	} catch (error) {
+	// 		if (error instanceof APIError) {
+	// 			return fail(400, { message: error.message || 'Failed to send verification email' });
+	// 		}
+	// 		return fail(500, { message: 'Unexpected error' });
+	// 	}
+	// }
 };

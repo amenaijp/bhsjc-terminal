@@ -16,6 +16,14 @@
 		timeStyle: 'short'
 	})} (dd/mm/yyyy, en-NZ)
 </p>
+<!--{#if !data.user.emailVerified}-->
+<!--	<form method="POST" use:enhance action="?/resendVerification">-->
+<!--		<button class="w-fit rounded-sm bg-blue-600 px-2 py-1 text-white transition hover:bg-blue-700">-->
+<!--			resend verification email-->
+<!--		</button>-->
+<!--		<p class="my-1 text-red-500">{form?.message ?? ''}</p>-->
+<!--	</form>-->
+<!--{/if}-->
 <form method="POST" use:enhance action="?/changeName">
 	<label>
 		change your name:
