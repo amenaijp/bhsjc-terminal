@@ -60,7 +60,7 @@ services:
     pull_policy: build
     restart: unless-stopped
     expose:
-      - '5173'
+      - '3000'
     env_file:
       - .env
     environment:
@@ -87,7 +87,7 @@ services:
       - '443:443/udp' # HTTP/3
     environment:
       ORIGIN: '${ORIGIN:?ORIGIN must be set}'
-      UPSTREAM: 'app:5173'
+      UPSTREAM: 'app:3000'
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./data/user_uploads:/data/user_uploads:ro
