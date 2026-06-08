@@ -33,7 +33,6 @@ services:
       - .env
     environment:
       GEOIPUPDATE_EDITION_IDS: "GeoLite2-City"
-      GEOIPUPDATE_FREQUENCY: "72"    # re-download every 72 hours
       GEOIPUPDATE_DB_DIR: /geoip
     volumes:
       - geoip_data:/geoip
