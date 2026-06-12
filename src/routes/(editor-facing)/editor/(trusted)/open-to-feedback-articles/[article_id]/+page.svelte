@@ -32,6 +32,7 @@
 			<div class="flex flex-1"></div>
 			<p class="md:text-md mt-3 self-center text-left text-sm text-[#666666]">
 				Genre{data.genres.length > 1 ? 's' : ''}:
+<!--				FIXME: shows none when there's only one associated genre -->
 				{#if data.genres.length > 1}
 					{#each data.genres as genre, i}
 						<span class="text-black hover:cursor-pointer hover:underline"
