@@ -82,6 +82,7 @@ services:
       NODE_ENV: production
       SQLITE_DATABASE_PATH: /data/sqlite_db/data.db
       USER_IMAGES_PATH: /data/user_uploads/
+      BODY_SIZE_LIMIT: 26214400  # 25MB upload limit to bun
     depends_on:
       umami:
         condition: service_healthy
